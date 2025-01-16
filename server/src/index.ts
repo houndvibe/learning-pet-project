@@ -1,9 +1,9 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import router from "./routes/index";
-import sequelize from "./database/database";
-import errorHandler from "./middleware/errorHandlingMiddleware";
+import router from "./routes/index.js";
+import sequelize from "./database/database.js";
+import errorHandler from "./middleware/errorHandlingMiddleware.js";
 const PORT = process.env.PORT || 7000;
 
 const app = express();
