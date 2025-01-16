@@ -1,6 +1,6 @@
-import { User } from "../database/database.js";
+import { User } from "../database/database";
 import bcrypt from "bcrypt";
-import ApiError from "../error/ApiError.js";
+import ApiError from "../error/ApiError";
 import jwt from "jsonwebtoken";
 
 const generateJwt = (id, username, role): string => {

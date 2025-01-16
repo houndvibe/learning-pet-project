@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import ApiError from "../error/ApiError.js";
+import ApiError from "../error/ApiError";
 
 export default function (
   err: unknown,
