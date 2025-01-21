@@ -67,6 +67,24 @@ class UserController {
 
     return res.json({ token });
   }
+
+  async getUsers(req, res, next) {
+    const users = await User.findAll();
+
+    if (!users) {
+      return next(ApiError.internal("Список юзеров пуст"));
+    }
+
+    const formatedUsers = await users.map(({ username, role, id }) => {
+      return {
+        username,
+        role,
+        id,
+      };
+    });
+
+    return res.json({ formatedUsers });
+  }
 }
 
 export default new UserController();
