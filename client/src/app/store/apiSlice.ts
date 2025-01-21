@@ -5,7 +5,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: __API__ }),
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: () => "/users",
+      query: () => "/user/getUsers",
     }),
 
     register: builder.mutation({
@@ -19,8 +19,22 @@ export const apiSlice = createApi({
         },
       }),
     }),
+    login: builder.mutation({
+      query: (arg) => ({
+        url: "/user/login",
+        method: "POST",
+        body: {
+          password: arg.password,
+          username: arg.username,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetUsersQuery, useLazyGetUsersQuery, useRegisterMutation } =
-  apiSlice;
+export const {
+  useGetUsersQuery,
+  useLazyGetUsersQuery,
+  useRegisterMutation,
+  useLoginMutation,
+} = apiSlice;
