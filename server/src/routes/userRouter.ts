@@ -7,6 +7,6 @@ const userRouter = Router();
 userRouter.post("/registration", userController.registration);
 userRouter.post("/login", userController.login);
 userRouter.get("/checkAuth", authMiddleware, userController.checkAuth);
-userRouter.get("/getUsers", userController.getUsers);
+userRouter.get("/getUsers", authMiddleware, userController.getUsers);
 
 export default userRouter;

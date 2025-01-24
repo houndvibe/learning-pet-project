@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 const generateJwt = (id, username, role): string => {
   return jwt.sign({ id, username, role }, process.env.SECRET_KEY, {
-    expiresIn: "24h",
+    expiresIn: "8000",
   });
 };
 
@@ -53,9 +53,10 @@ class UserController {
     }
 
     const token: string = generateJwt(user.id, user.username, user.role);
-    return res.json({ token, role: user.role });
+    return res.json({ token });
   }
 
+  //Изменить и доработать этот роут
   async checkAuth(req, res, next) {
     const token = generateJwt(req.user.id, req.user.username, req.user.role);
 
@@ -82,7 +83,6 @@ class UserController {
         id,
       };
     });
-
     return res.json({ formatedUsers });
   }
 }
