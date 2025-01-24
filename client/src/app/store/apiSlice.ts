@@ -1,8 +1,44 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  BaseQueryFn,
+  createApi,
+  FetchArgs,
+  fetchBaseQuery,
+  FetchBaseQueryError,
+} from "@reduxjs/toolkit/query/react";
+import store, { RootState } from "./rootStore";
+import { signOut } from "~entities/user/model/userSlice";
+
+const baseQueryWithAuth: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  const result = await fetchBaseQuery({
+    baseUrl: __API__,
+    prepareHeaders: (headers, { getState, endpoint }) => {
+      const reducers = getState() as RootState;
+      if (
+        reducers.user.authorized === true &&
+        endpoint !== "/user/registration" &&
+        endpoint !== "/user/login"
+      ) {
+        headers.set("Cache-Control", "cache");
+        headers.set("Authorization", `Bearer ${reducers.user.accessToken}`);
+      }
+      return headers.set("Cache-Control", "cache");
+    },
+  })(args, api, extraOptions);
+
+  if (result.error?.status === 401) {
+    store.dispatch(signOut());
+  }
+
+  return result;
+};
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: __API__ }),
+  baseQuery: baseQueryWithAuth,
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: () => "/user/getUsers",

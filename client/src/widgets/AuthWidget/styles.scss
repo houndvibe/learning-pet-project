@@ -1,0 +1,44 @@
+// styles.scss
+.auth {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0 16px;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2); // Градиентный фон
+
+  &__form {
+    width: 100%;
+    max-width: 500px;
+    padding: 32px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Тень для контейнера
+    text-align: center;
+  }
+
+  &__title {
+    margin-bottom: 24px;
+    color: #1890ff;
+  }
+
+  &__input {
+    margin-bottom: 16px;
+
+    &--password {
+      margin-bottom: 24px;
+    }
+  }
+
+  &__toggle {
+    &-text {
+      color: #666;
+    }
+
+    &-button {
+      color: #1890ff;
+      font-weight: bold;
+    }
+  }
+}
