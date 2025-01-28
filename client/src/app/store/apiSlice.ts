@@ -43,7 +43,9 @@ export const apiSlice = createApi({
     getUsers: builder.query({
       query: () => "/user/getUsers",
     }),
-
+    checkAuth: builder.query({
+      query: () => "/user/checkAuth",
+    }),
     register: builder.mutation({
       query: (arg) => ({
         url: "/user/registration",
@@ -73,4 +75,5 @@ export const {
   useLazyGetUsersQuery,
   useRegisterMutation,
   useLoginMutation,
+  useLazyCheckAuthQuery,
 } = apiSlice;

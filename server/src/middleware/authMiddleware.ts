@@ -10,7 +10,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
 
   const authHeader = req.headers.authorization;
 
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  if (!authHeader) {
     return next(ApiError.unauthorised("Пользователь не авторизован"));
   }
 

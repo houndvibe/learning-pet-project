@@ -31,14 +31,10 @@ export const AuthWidget = () => {
 
   const { authorized, accessToken } = useUser();
 
-  const onLoginSuccess = (token: string) => {
-    dispatch(signIn(token));
-    navigate("/");
-  };
-
   useEffect(() => {
     if (authorized && accessToken) {
-      onLoginSuccess(accessToken);
+      dispatch(signIn(accessToken));
+      navigate("/");
     }
   }, [authorized]);
 

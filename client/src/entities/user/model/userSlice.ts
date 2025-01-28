@@ -7,7 +7,7 @@ export interface UserSlice {
 
 const initialState: UserSlice = {
   authorized: localStorage.getItem("authToken") !== null ? true : false,
-  accessToken: "",
+  accessToken: localStorage.getItem("authToken") || "",
 };
 
 export const userSlice = createSlice({
@@ -17,7 +17,7 @@ export const userSlice = createSlice({
     signIn(state, action: PayloadAction<string>) {
       state.authorized = true;
       state.accessToken = action.payload;
-      localStorage.setItem("authToken", action.payload);
+      localStorage.setItem("authToken", `${action.payload}`);
     },
     signOut(state) {
       state.authorized = false;
