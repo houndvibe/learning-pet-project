@@ -6,7 +6,7 @@ import {
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query/react";
 import store, { RootState } from "./rootStore";
-import { signOut } from "~entities/user/model/userSlice";
+import { signIn, signOut } from "~entities/user/model/userSlice";
 
 const baseQueryWithAuth: BaseQueryFn<
   string | FetchArgs,
@@ -15,6 +15,7 @@ const baseQueryWithAuth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   const result = await fetchBaseQuery({
     baseUrl: __API__,
+    credentials: "include",
     prepareHeaders: (headers, { getState, endpoint }) => {
       const reducers = getState() as RootState;
       if (
@@ -36,9 +37,34 @@ const baseQueryWithAuth: BaseQueryFn<
   return result;
 };
 
+const baseQueryWithReauth: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  let result = await baseQueryWithAuth(args, api, extraOptions);
+  if (result?.error?.status === 401) {
+    const refreshResult = await baseQueryWithAuth(
+      {
+        url: "/user/refresh",
+        method: "POST",
+      },
+      api,
+      extraOptions
+    );
+    if (refreshResult?.data) {
+      api.dispatch(signIn(refreshResult.data.token));
+      result = await baseQueryWithAuth(args, api, extraOptions);
+    } else {
+      api.dispatch(signOut());
+    }
+  }
+  return result;
+};
+
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: baseQueryWithAuth,
+  baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: () => "/user/getUsers",
