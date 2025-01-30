@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
-import store from "~app/store/rootStore";
 import { useLazyCheckAuthQuery } from "~app/store/apiSlice";
+import store from "~app/store/rootStore";
 
 export const AuthorisedRoutes = () => {
   const [checkAuth] = useLazyCheckAuthQuery();
@@ -11,17 +11,15 @@ export const AuthorisedRoutes = () => {
   );
 
   useEffect(() => {
-    checkAuth({});
+    //не чекаем авторизацию на странице авторизации
+    if (authorized) {
+      checkAuth({});
+    }
   }, [checkAuth]);
 
   useEffect(() => {
     store.subscribe(() => setAuthorized(store.getState().user.authorized));
   }, []);
 
-  return (
-    <>
-      {/*  {authorized ? <Header /> : <></>} */}
-      {authorized ? <Outlet /> : <Navigate to="/LogIn" />}
-    </>
-  );
+  return <>{authorized ? <Outlet /> : <Navigate to="/LogIn" />}</>;
 };
