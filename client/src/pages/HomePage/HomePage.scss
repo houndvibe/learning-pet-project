@@ -1,0 +1,53 @@
+.app {
+  min-height: 100vh;
+
+  &__layout {
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2) !important;
+  }
+
+  &__sider {
+    background: #fff;
+  }
+
+  &__logo {
+    height: 32px;
+    margin: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    text-align: center;
+    line-height: 32px;
+    color: #fff;
+  }
+
+  &__menu {
+    border-right: 0;
+  }
+
+  &__layout {
+    background: #f0f2f5;
+  }
+
+  &__header {
+    padding: 0;
+    background: #fff;
+    display: flex;
+    align-items: center;
+  }
+
+  &__trigger {
+    font-size: 16px;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__content {
+    margin: 30px 30px;
+    padding: 24px;
+    min-height: 280px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+}
