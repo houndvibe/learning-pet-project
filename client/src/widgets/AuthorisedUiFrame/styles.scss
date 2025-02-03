@@ -1,0 +1,17 @@
+.app {
+  min-height: 100vh;
+
+  &__layout {
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2) !important;
+    background: #f0f2f5;
+  }
+
+  &__content {
+    margin: 30px 30px;
+    padding: 24px;
+    min-height: 280px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+}

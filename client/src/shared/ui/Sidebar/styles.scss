@@ -1,0 +1,16 @@
+.sidebar {
+  background: #fff;
+
+  &__logo {
+    height: 32px;
+    margin: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    text-align: center;
+    line-height: 32px;
+    color: #fff;
+  }
+
+  &__menu {
+    border-right: 0;
+  }
+}
