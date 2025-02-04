@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { Layout } from "antd";
 import { Sidebar } from "~shared/ui/Sidebar";
 import { AppHeader } from "~shared/ui/AppHeader";
 import "./styles.scss";
 
-const { Content } = Layout;
+interface AuthorisedUiFrameProps {
+  children: ReactNode;
+}
 
-export const AuthorisedUiFrame = ({ children }: { children: JSX.Element }) => {
+export const AuthorisedUiFrame: React.FC<AuthorisedUiFrameProps> = ({
+  children,
+}) => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -14,7 +18,7 @@ export const AuthorisedUiFrame = ({ children }: { children: JSX.Element }) => {
       <Sidebar collapsed={collapsed} />
       <Layout className="app__layout">
         <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
-        <Content className="app__content">{children}</Content>
+        <Layout.Content className="app__content">{children}</Layout.Content>
       </Layout>
     </Layout>
   );

@@ -4,15 +4,13 @@ import { useTypedDispatch } from "../../../app/store/typedHooks";
 import { Button } from "antd";
 import { useLoginMutation } from "~app/store/apiSlice";
 
-export const LogInFeature = ({
-  username,
-  password,
-  text,
-}: {
+interface Props {
   username: string;
   password: string;
   text: string;
-}) => {
+}
+
+export const LogInFeature: React.FC<Props> = ({ username, password, text }) => {
   const dispatch = useTypedDispatch();
   const navigate = useNavigate();
 

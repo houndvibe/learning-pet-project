@@ -1,16 +1,14 @@
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Layout, Button } from "antd";
+import { Button } from "antd";
+import { Header } from "antd/lib/layout/layout";
+import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import "./styles.scss";
 
-const { Header } = Layout;
-
-export const AppHeader = ({
-  collapsed,
-  setCollapsed,
-}: {
+interface Props {
   collapsed: boolean;
   setCollapsed: (collapsed: boolean) => void;
-}) => {
+}
+
+export const AppHeader: React.FC<Props> = ({ collapsed, setCollapsed }) => {
   return (
     <Header className="header">
       <Button
@@ -22,3 +20,5 @@ export const AppHeader = ({
     </Header>
   );
 };
+
+export default AppHeader;
