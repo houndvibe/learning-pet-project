@@ -2,18 +2,19 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { LogInPage } from "~pages/LogInPage/LogIn";
 import { HomePage } from "~pages/HomePage/HomePage";
 import { AuthorisedRoutes } from "./AuthorisedRoutes/AuthorisedRoutes";
+import { ROUTES } from "../consts/routes";
 
 const router = createBrowserRouter([
   {
     path: "*",
-    element: <Navigate to="/" />,
+    element: <Navigate to={ROUTES.HOME} />,
   },
   {
-    path: "login",
+    path: ROUTES.LOGIN,
     element: <LogInPage />,
   },
   {
-    path: "/",
+    path: ROUTES.HOME,
     element: <AuthorisedRoutes />,
     errorElement: <>ErrorPage</>,
     children: [
@@ -22,17 +23,17 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "users",
+        path: ROUTES.USERS,
         element: <>UsersPage</>,
         errorElement: <>ErrorPage</>,
       },
       {
-        path: "testPage",
+        path: ROUTES.TEST_PAGE,
         element: <>TestPage</>,
         errorElement: <>ErrorPage</>,
       },
       {
-        path: "users/:userId",
+        path: ROUTES.USER,
         element: <>UserItemPage</>,
         errorElement: <>ErrorPage</>,
       },
