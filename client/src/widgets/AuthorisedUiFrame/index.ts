@@ -1,1 +1,0 @@
-export { AuthorisedUiFrame } from "./AppFrame";

@@ -1,8 +1,10 @@
 import { ReactNode, useState } from "react";
 import { Layout } from "antd";
-import { Sidebar } from "~widgets/AuthorisedUiFrame/Sidebar/ui";
-import Header from "~widgets/AuthorisedUiFrame/Header/ui/ui";
+
 import "./styles.scss";
+import { Header } from "~widgets/AuthorisedUi/Header";
+import { Sidebar } from "~widgets/AuthorisedUi/Sidebar";
+
 interface AuthorisedUiFrameProps {
   children: ReactNode;
 }

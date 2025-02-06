@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface UserSlice {
+export interface AuthSlice {
   authorized: boolean;
   accessToken: string;
 }
 
-const initialState: UserSlice = {
+const initialState: AuthSlice = {
   authorized: localStorage.getItem("authToken") !== null ? true : false,
   accessToken: localStorage.getItem("authToken") || "",
 };
 
-export const userSlice = createSlice({
-  name: "user",
+export const authSlice = createSlice({
+  name: "auth",
   initialState,
   reducers: {
     signIn(state, action: PayloadAction<string>) {
@@ -27,4 +27,4 @@ export const userSlice = createSlice({
   },
 });
 
-export const { signIn, signOut } = userSlice.actions;
+export const { signIn, signOut } = authSlice.actions;

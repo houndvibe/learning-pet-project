@@ -4,8 +4,8 @@ import { useTypedDispatch } from "~app/store/typedHooks";
 import { sidebarItemsConfig } from "~shared/config/sidebarItemsConfig";
 import { generateSidebarMenuItems } from "./generateSidebarMenuItems";
 import "./styles.scss";
-const { Sider } = Layout;
 
+const { Sider } = Layout;
 interface Props {
   collapsed: boolean;
 }

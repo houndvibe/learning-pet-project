@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "../../shared/api/apiSlice";
-import { userSlice } from "../../entities/user/model/userSlice";
+import { authSlice } from "../../features/Auth/model/authSlice";
 import { rtkQueryErrorLogger } from "./errorMiddleware";
 
 const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
-    user: userSlice.reducer,
+    auth: authSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware, rtkQueryErrorLogger),

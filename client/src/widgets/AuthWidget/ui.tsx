@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import { useTypedDispatch } from "~app/store/typedHooks";
 import { useNavigate } from "react-router-dom";
 import { Input, Space, Typography, Button } from "antd";
-import { signIn } from "~entities/user/model/userSlice";
-import { useUser } from "~entities/user/model/selector";
+import { signIn } from "~features/Auth/model/authSlice";
+import { useUser } from "~features/Auth/model/selector";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { Register } from "~features/Auth/Register/ui/index";
-import { LogInFeature } from "~features/Auth/LogIn/ui/index";
+import { LogIn, Register } from "~features/Auth/ui";
 import "./styles.scss";
 
 const { Title, Text } = Typography;
@@ -62,11 +61,7 @@ export const AuthWidget = () => {
         {registerMode ? (
           <Register username={username} password={password} text={"Register"} />
         ) : (
-          <LogInFeature
-            username={username}
-            password={password}
-            text={"LogIn"}
-          />
+          <LogIn username={username} password={password} text={"LogIn"} />
         )}
 
         <Space direction="vertical" size="middle">

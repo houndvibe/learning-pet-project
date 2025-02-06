@@ -2,13 +2,13 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useLazyCheckAuthQuery } from "~shared/api/apiSlice";
 import store from "~app/store/rootStore";
-import { AuthorisedUiFrame } from "~widgets/AuthorisedUiFrame/AppFrame/ui";
+import { AuthorisedUiFrame } from "~widgets/AuthorisedUi";
 
 export const AuthorisedRoutes = () => {
   const [checkAuth] = useLazyCheckAuthQuery();
 
   const [authorized, setAuthorized] = useState(
-    store.getState().user.authorized
+    store.getState().auth.authorized
   );
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export const AuthorisedRoutes = () => {
   }, [checkAuth]);
 
   useEffect(() => {
-    store.subscribe(() => setAuthorized(store.getState().user.authorized));
+    store.subscribe(() => setAuthorized(store.getState().auth.authorized));
   }, []);
 
   return (

@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
+
 import { Button } from "antd";
-import { useLoginMutation } from "~shared/api/apiSlice";
+import { useRegisterMutation } from "~shared/api/apiSlice";
+import { signIn } from "~features/Auth/model/authSlice";
+import React from "react";
 import { useTypedDispatch } from "~app/store/typedHooks";
-import { signIn } from "~entities/user/model/userSlice";
 
 interface Props {
   username: string;
@@ -10,25 +12,25 @@ interface Props {
   text: string;
 }
 
-export const LogInFeature: React.FC<Props> = ({ username, password, text }) => {
+export const Register: React.FC<Props> = ({ username, password, text }) => {
   const dispatch = useTypedDispatch();
   const navigate = useNavigate();
 
-  const [getToken] = useLoginMutation();
+  const [registerMutation] = useRegisterMutation();
 
   const handleSubmit = async () => {
     try {
-      const loginPayload = await getToken({
+      const registrationPayload = await registerMutation({
         username,
         password,
+        role: "ADMIN",
       }).unwrap();
-
-      if (loginPayload.token) {
-        dispatch(signIn(loginPayload.token));
+      if (registrationPayload) {
+        dispatch(signIn(registrationPayload.token));
         navigate("/");
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.error(error);
     }
   };
 

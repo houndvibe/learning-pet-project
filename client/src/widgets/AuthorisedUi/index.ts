@@ -1,0 +1,1 @@
+export { AuthorisedUiFrame } from "./AuthorisedUiFrame";
