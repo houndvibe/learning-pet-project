@@ -1,1 +1,1 @@
-export { AuthorisedUiFrame } from "./ui";
+export { AuthorisedUiFrame } from "./AppFrame";

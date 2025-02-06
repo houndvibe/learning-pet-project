@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useTypedDispatch } from "../../../app/store/typedHooks";
+import { useTypedDispatch } from "../../../../app/store/typedHooks";
 import { Button } from "antd";
 import { useRegisterMutation } from "~app/store/apiSlice";
 import { signIn } from "~entities/user/model/userSlice";

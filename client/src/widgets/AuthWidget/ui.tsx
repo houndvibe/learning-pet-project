@@ -5,8 +5,8 @@ import { Input, Space, Typography, Button } from "antd";
 import { signIn } from "~entities/user/model/userSlice";
 import { useUser } from "~entities/user/model/selector";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { Register } from "~features/Auth/Register";
-import { LogInFeature } from "~features/Auth/LogIn";
+import { Register } from "~features/Auth/Register/ui/index";
+import { LogInFeature } from "~features/Auth/LogIn/ui/index";
 import "./styles.scss";
 
 const { Title, Text } = Typography;
@@ -14,22 +14,18 @@ const { Title, Text } = Typography;
 export const AuthWidget = () => {
   const dispatch = useTypedDispatch();
   const navigate = useNavigate();
-  const [registerMode, setRegisternMode] = useState<boolean>(true);
 
+  const [registerMode, setRegisternMode] = useState<boolean>(true);
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const handleChangeMode = () => {
-    setRegisternMode(!registerMode);
-  };
+  const { authorized, accessToken } = useUser();
 
   useEffect(() => {
     return () => {
       setRegisternMode(false);
     };
   }, []);
-
-  const { authorized, accessToken } = useUser();
 
   useEffect(() => {
     if (authorized && accessToken) {
@@ -77,7 +73,7 @@ export const AuthWidget = () => {
           <Text className="auth__toggle-text">Or:</Text>
           <Button
             type="link"
-            onClick={handleChangeMode}
+            onClick={() => setRegisternMode(!registerMode)}
             className="auth__toggle-button"
           >
             {registerMode

@@ -2,7 +2,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useLazyCheckAuthQuery } from "~app/store/apiSlice";
 import store from "~app/store/rootStore";
-import { AuthorisedUiFrame } from "~widgets/AuthorisedUiFrame";
+import { AuthorisedUiFrame } from "~widgets/AuthorisedUiFrame/AppFrame/ui";
 
 export const AuthorisedRoutes = () => {
   const [checkAuth] = useLazyCheckAuthQuery();
