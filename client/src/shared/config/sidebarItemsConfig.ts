@@ -51,6 +51,7 @@ export const sidebarItemsConfig: SidebarItemsProps[] = [
         key: "33",
         label: "Выход",
         icon: LogoutOutlined,
+        
       },
     ],
   },
