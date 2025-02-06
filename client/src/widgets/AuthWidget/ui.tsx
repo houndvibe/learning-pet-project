@@ -3,10 +3,10 @@ import { useTypedDispatch } from "~app/store/typedHooks";
 import { useNavigate } from "react-router-dom";
 import { Input, Space, Typography, Button } from "antd";
 import { signIn } from "~features/Auth/model/authSlice";
-import { useUser } from "~features/Auth/model/selector";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { LogIn, Register } from "~features/Auth/ui";
+import { LogIn, Register } from "~features/auth/ui";
 import "./styles.scss";
+import { useAuth } from "~features/auth/model/selector";
 
 const { Title, Text } = Typography;
 
@@ -18,7 +18,7 @@ export const AuthWidget = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const { authorized, accessToken } = useUser();
+  const { authorized, accessToken } = useAuth();
 
   useEffect(() => {
     return () => {

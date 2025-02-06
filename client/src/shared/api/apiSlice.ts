@@ -19,12 +19,12 @@ const baseQueryWithAuth: BaseQueryFn<
     prepareHeaders: (headers, { getState, endpoint }) => {
       const reducers = getState() as RootState;
       if (
-        reducers.user.authorized === true &&
+        reducers.auth.authorized === true &&
         endpoint !== "/user/registration" &&
         endpoint !== "/user/login"
       ) {
         headers.set("Cache-Control", "cache");
-        headers.set("Authorization", `Bearer ${reducers.user.accessToken}`);
+        headers.set("Authorization", `Bearer ${reducers.auth.accessToken}`);
       }
       return headers.set("Cache-Control", "cache");
     },

@@ -2,11 +2,12 @@ import {
   HomeOutlined,
   FolderOpenOutlined,
   SettingOutlined,
-  UserOutlined,
-  GlobalOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
 import { AntdIconProps } from "@ant-design/icons/lib/components/AntdIcon";
+import { Dispatch } from "redux";
+import { signOut } from "~features/Auth/model/authSlice";
+import { showConfirmModal } from "~features/showConfirmModal";
 
 export interface SidebarItemsProps {
   key: string;
@@ -14,9 +15,12 @@ export interface SidebarItemsProps {
   icon?: React.ComponentType<AntdIconProps>;
   to?: string;
   children?: SidebarItemsProps[];
+  onClick?: () => void;
 }
 
-export const sidebarItemsConfig: SidebarItemsProps[] = [
+export const getSidebarItemsConfig = (
+  dispatch: Dispatch
+): SidebarItemsProps[] => [
   {
     key: "1",
     label: "Главная",
@@ -45,13 +49,18 @@ export const sidebarItemsConfig: SidebarItemsProps[] = [
     label: "Настройки",
     icon: SettingOutlined,
     children: [
-      { key: "31", label: "Пользователи", icon: UserOutlined },
-      { key: "32", label: "Язык", icon: GlobalOutlined },
       {
         key: "33",
         label: "Выход",
         icon: LogoutOutlined,
-        
+        onClick: () => {
+          showConfirmModal({
+            title: "Вы действительно хотите выйти?",
+            onOk: () => dispatch(signOut()),
+            okText: "Да",
+            cancelText: "Нет",
+          });
+        },
       },
     ],
   },

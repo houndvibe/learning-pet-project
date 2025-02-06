@@ -1,19 +1,17 @@
 import { MenuProps } from "antd";
-import { useTypedDispatch } from "~app/store/typedHooks";
 import { SidebarItemsProps } from "~shared/config/sidebarItemsConfig";
 
 export const generateSidebarMenuItems = (
   items: SidebarItemsProps[],
-  navigate: (path: string) => void,
-  dispatch: ReturnType<typeof useTypedDispatch>
+  navigate: (path: string) => void
 ): MenuProps["items"] => {
-  return items.map(({ key, label, icon: Icon, to, children }) => ({
+  return items.map(({ key, label, icon: Icon, to, children, onClick }) => ({
     key,
     label,
     icon: Icon ? <Icon /> : undefined,
-    onClick: to ? () => navigate(to) : undefined,
+    onClick: onClick ? onClick : to ? () => navigate(to) : undefined,
     children: children
-      ? generateSidebarMenuItems(children, navigate, dispatch)
+      ? generateSidebarMenuItems(children, navigate)
       : undefined,
   }));
 };
