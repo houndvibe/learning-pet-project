@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import { Header } from "antd/lib/layout/layout";
+import { Header as AntHeader } from "antd/lib/layout/layout";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import "./styles.scss";
 
@@ -8,17 +8,17 @@ interface Props {
   setCollapsed: (collapsed: boolean) => void;
 }
 
-export const AppHeader: React.FC<Props> = ({ collapsed, setCollapsed }) => {
+export const Header: React.FC<Props> = ({ collapsed, setCollapsed }) => {
   return (
-    <Header className="header">
+    <AntHeader className="header">
       <Button
         type="text"
         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         onClick={() => setCollapsed(!collapsed)}
         className="header__button"
       />
-    </Header>
+    </AntHeader>
   );
 };
 
-export default AppHeader;
+export default Header;

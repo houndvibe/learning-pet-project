@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useLazyCheckAuthQuery } from "~app/store/apiSlice";
+import { useLazyCheckAuthQuery } from "~shared/api/apiSlice";
 import store from "~app/store/rootStore";
 import { AuthorisedUiFrame } from "~widgets/AuthorisedUiFrame/AppFrame/ui";
 

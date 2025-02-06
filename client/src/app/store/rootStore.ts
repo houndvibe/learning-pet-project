@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { apiSlice } from "./apiSlice";
+import { apiSlice } from "../../shared/api/apiSlice";
 import { userSlice } from "../../entities/user/model/userSlice";
 import { rtkQueryErrorLogger } from "./errorMiddleware";
 

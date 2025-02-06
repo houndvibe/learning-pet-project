@@ -5,7 +5,7 @@ import {
   fetchBaseQuery,
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query/react";
-import store, { RootState } from "./rootStore";
+import store, { RootState } from "~app/store/rootStore";
 import { signIn, signOut } from "~entities/user/model/userSlice";
 
 const baseQueryWithAuth: BaseQueryFn<

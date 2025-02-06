@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { signIn } from "../../../../entities/user/model/userSlice";
-import { useTypedDispatch } from "../../../../app/store/typedHooks";
 import { Button } from "antd";
-import { useLoginMutation } from "~app/store/apiSlice";
+import { useLoginMutation } from "~shared/api/apiSlice";
+import { useTypedDispatch } from "~app/store/typedHooks";
+import { signIn } from "~entities/user/model/userSlice";
 
 interface Props {
   username: string;

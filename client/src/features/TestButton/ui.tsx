@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import { useLazyGetUsersQuery } from "~app/store/apiSlice";
+import { useLazyGetUsersQuery } from "~shared/api/apiSlice";
 
 export const TestButton = () => {
   const [trigger] = useLazyGetUsersQuery({});

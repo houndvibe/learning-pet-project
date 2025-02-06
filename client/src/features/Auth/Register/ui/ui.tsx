@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useTypedDispatch } from "../../../../app/store/typedHooks";
 import { Button } from "antd";
-import { useRegisterMutation } from "~app/store/apiSlice";
+import { useRegisterMutation } from "~shared/api/apiSlice";
 import { signIn } from "~entities/user/model/userSlice";
 import React from "react";
 

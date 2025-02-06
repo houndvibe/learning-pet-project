@@ -1,8 +1,8 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { LogInPage } from "~pages/LogInPage/LogIn";
 import { HomePage } from "~pages/HomePage/HomePage";
-import { AuthorisedRoutes } from "./AuthorisedRoutes/AuthorisedRoutes";
-import { ROUTES } from "../consts/routes";
+import { AuthorisedRoutes } from "../providers/AuthorisedRoutes";
+import { ROUTES } from "~shared/config/routes";
 
 const router = createBrowserRouter([
   {

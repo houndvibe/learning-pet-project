@@ -1,10 +1,10 @@
 import { createRoot } from "react-dom/client";
 
-import StoreProvider from "./app/providers/storeProvider";
-import SettingsProvider from "./app/providers/settingsProvider";
+import StoreProvider from "./app/providers/StoreProvider";
+import SettingsProvider from "./app/providers/SettingsProvider ";
 import router from "./app/routes/router";
 import { RouterProvider } from "react-router-dom";
-import { LocaleProvider } from "~app/providers/localeProvider";
+import { LocaleProvider } from "~app/providers/LocaleProvider ";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
