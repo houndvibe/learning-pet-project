@@ -1,7 +1,7 @@
 import { ReactNode, useState } from "react";
 import { Layout } from "antd";
-import { Sidebar } from "~shared/ui/Sidebar";
-import { AppHeader } from "~shared/ui/AppHeader";
+import { Sidebar } from "~widgets/AuthorisedUiFrame/Sidebar";
+import { AppHeader } from "~widgets/AuthorisedUiFrame/AppHeader";
 import "./styles.scss";
 
 interface AuthorisedUiFrameProps {
