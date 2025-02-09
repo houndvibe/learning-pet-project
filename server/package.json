@@ -18,8 +18,12 @@
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
+    "redoc-express": "^2.1.0",
     "sequelize": "^6.37.5",
-    "ts-node": "^10.9.2"
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "ts-node": "^10.9.2",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.6",
