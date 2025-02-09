@@ -1,9 +1,10 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import { LogInPage } from "~pages/LogInPage/LogIn";
+
 import { HomePage } from "~pages/HomePage/HomePage";
 import { AuthorisedRoutes } from "../providers/AuthorisedRoutes";
 import { ROUTES } from "~shared/config/routes";
 import { UsersPage } from "~pages/UsersPage/UsersPage";
+import { LoginPage } from "~pages/LogInPage/LogIn";
 
 const router = createBrowserRouter([
   {
@@ -12,7 +13,7 @@ const router = createBrowserRouter([
   },
   {
     path: ROUTES.LOGIN,
-    element: <LogInPage />,
+    element: <LoginPage />,
   },
   {
     path: ROUTES.HOME,
