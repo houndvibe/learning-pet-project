@@ -3,6 +3,7 @@ import {
   FolderOpenOutlined,
   SettingOutlined,
   LogoutOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { AntdIconProps } from "@ant-design/icons/lib/components/AntdIcon";
 import { Dispatch } from "redux";
@@ -50,7 +51,13 @@ export const getSidebarItemsConfig = (
     icon: SettingOutlined,
     children: [
       {
-        key: "33",
+        key: "31",
+        label: "Пользователи",
+        icon: UserOutlined,
+        to: "settings/users",
+      },
+      {
+        key: "32",
         label: "Выход",
         icon: LogoutOutlined,
         onClick: () => {

@@ -3,6 +3,7 @@ import { LogInPage } from "~pages/LogInPage/LogIn";
 import { HomePage } from "~pages/HomePage/HomePage";
 import { AuthorisedRoutes } from "../providers/AuthorisedRoutes";
 import { ROUTES } from "~shared/config/routes";
+import { UsersPage } from "~pages/UsersPage/UsersPage";
 
 const router = createBrowserRouter([
   {
@@ -23,18 +24,13 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: ROUTES.USERS,
-        element: <>UsersPage</>,
+        path: ROUTES.SETTINGS_USERS,
+        element: <UsersPage />,
         errorElement: <>ErrorPage</>,
       },
       {
         path: ROUTES.TEST_PAGE,
         element: <>TestPage</>,
-        errorElement: <>ErrorPage</>,
-      },
-      {
-        path: ROUTES.USER,
-        element: <>UserItemPage</>,
         errorElement: <>ErrorPage</>,
       },
     ],
