@@ -43,7 +43,7 @@ export type RegistrationApiArg = {
     /** Пароль пользователя. */
     password?: string;
     /** Роль пользователя. */
-    role?: string;
+    role?: "USER" | "ADMIN";
   };
 };
 export type LoginApiResponse = /** status 200 Успешная аутентификация */ {

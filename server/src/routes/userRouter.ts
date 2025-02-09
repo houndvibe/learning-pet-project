@@ -1,5 +1,5 @@
+import userController from "../controllers/user/UserController";
 import { Router } from "express";
-import userController from "../controllers/userController";
 import authMiddleware from "../middleware/authMiddleware";
 
 const userRouter = Router();
@@ -28,6 +28,9 @@ const userRouter = Router();
  *                 description: Пароль пользователя.
  *               role:
  *                 type: string
+ *                 enum:
+ *                  - USER
+ *                  - ADMIN
  *                 description: Роль пользователя.
  *     responses:
  *       200:
@@ -71,11 +74,9 @@ userRouter.post("/registration", userController.registration);
  *               username:
  *                 type: string
  *                 description: Имя пользователя
- *                 example: "user123"
  *               password:
  *                 type: string
  *                 description: Пароль пользователя
- *                 example: "password123"
  *     responses:
  *       200:
  *         description: Успешная аутентификация
