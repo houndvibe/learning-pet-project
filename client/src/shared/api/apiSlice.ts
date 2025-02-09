@@ -6,7 +6,7 @@ import {
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query/react";
 import store, { RootState } from "~app/store/rootStore";
-import { signIn, signOut } from "~features/Auth/model/authSlice";
+import { signIn, signOut } from "~features/auth/model/authSlice";
 
 const baseQueryWithAuth: BaseQueryFn<
   string | FetchArgs,
@@ -65,41 +65,7 @@ const baseQueryWithReauth: BaseQueryFn<
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReauth,
-  endpoints: (builder) => ({
-    getUsers: builder.query({
-      query: () => "/user/getUsers",
-    }),
-    checkAuth: builder.query({
-      query: () => "/user/checkAuth",
-    }),
-    register: builder.mutation({
-      query: (arg) => ({
-        url: "/user/registration",
-        method: "POST",
-        body: {
-          password: arg.password,
-          username: arg.username,
-          role: arg.role,
-        },
-      }),
-    }),
-    login: builder.mutation({
-      query: (arg) => ({
-        url: "/user/login",
-        method: "POST",
-        body: {
-          password: arg.password,
-          username: arg.username,
-        },
-      }),
-    }),
-  }),
+  keepUnusedDataFor: 0,
+  tagTypes: ["User"],
+  endpoints: () => ({}),
 });
-
-export const {
-  useGetUsersQuery,
-  useLazyGetUsersQuery,
-  useRegisterMutation,
-  useLoginMutation,
-  useLazyCheckAuthQuery,
-} = apiSlice;

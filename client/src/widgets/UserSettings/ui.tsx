@@ -1,8 +1,8 @@
 import { Table } from "antd";
-import { useGetUsersQuery } from "~shared/api/apiSlice";
+import { useGetUsersQuery } from "~shared/api/generatedApi";
 
 export const UsersSettings = () => {
-  const { data, isLoading } = useGetUsersQuery({});
+  const { data, isLoading } = useGetUsersQuery();
 
   const columns = [
     {
@@ -25,7 +25,7 @@ export const UsersSettings = () => {
   return (
     <Table
       columns={columns}
-      dataSource={data?.data.map((item) => ({ ...item, key: item.id }))}
+      dataSource={data?.data?.map((item) => ({ ...item, key: item.id }))}
       loading={isLoading}
     />
   );

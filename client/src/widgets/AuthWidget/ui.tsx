@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTypedDispatch } from "~app/store/typedHooks";
 import { useNavigate } from "react-router-dom";
 import { Input, Space, Typography, Button } from "antd";
-import { signIn } from "~features/Auth/model/authSlice";
+import { signIn } from "~features/auth/model/authSlice";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { LogIn, Register } from "~features/auth/ui";
 import "./styles.scss";

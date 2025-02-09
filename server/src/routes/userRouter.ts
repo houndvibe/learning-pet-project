@@ -6,12 +6,13 @@ const userRouter = Router();
 
 /**
  * @swagger
- * /registration:
+ * user/registration:
  *   post:
  *     tags:
  *       - User
  *     summary: registration - Регистрация нового пользователя
  *     description: Создает нового пользователя с уникальным username и паролем, хэширует пароль, генерирует токены и отправляет их в ответ.
+ *     operationId: registration
  *     requestBody:
  *       required: true
  *       content:
@@ -53,15 +54,31 @@ const userRouter = Router();
 userRouter.post("/registration", userController.registration);
 /**
  * @swagger
- * /refresh:
+ * user/login:
  *   post:
  *     tags:
  *       - User
- *     summary: refresh - Обновление токена авторизации
- *     description: Использует refresh-токен, чтобы получить новый токен для доступа к защищенным маршрутам.
+ *     summary: login - Аутентификация пользователя
+ *     description: Аутентифицирует пользователя по логину и паролю, возвращает JWT-токен и устанавливает refresh-токен в куки.
+ *     operationId: login
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: Имя пользователя
+ *                 example: "user123"
+ *               password:
+ *                 type: string
+ *                 description: Пароль пользователя
+ *                 example: "password123"
  *     responses:
  *       200:
- *         description: Новый токен авторизации
+ *         description: Успешная аутентификация
  *         content:
  *           application/json:
  *             schema:
@@ -69,9 +86,14 @@ userRouter.post("/registration", userController.registration);
  *               properties:
  *                 token:
  *                   type: string
- *                   description: Новый токен для доступа к защищенным маршрутам.
- *       403:
- *         description: Отсутствует или недействителен refresh-токен.
+ *                   description: JWT-токен для доступа к защищенным маршрутам.
+ *         headers:
+ *           Set-Cookie:
+ *             schema:
+ *               type: string
+ *               description: refresh-токен, установленный в куки.
+ *       400:
+ *         description: Неверные данные для входа
  *         content:
  *           application/json:
  *             schema:
@@ -79,17 +101,28 @@ userRouter.post("/registration", userController.registration);
  *               properties:
  *                 message:
  *                   type: string
- *                   description: Описание ошибки (например, "Отсутствует refresh-токен" или "No refresh token").
+ *                   description: Описание ошибки (например, "Пользователь с таким именем не найден" или "Указан неверный пароль").
+ *       500:
+ *         description: Внутренняя ошибка сервера
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Описание ошибки (например, "Ошибка сервера").
  */
 userRouter.post("/login", userController.login);
 /**
  * @swagger
- * /login:
+ * user/refresh:
  *   post:
  *     tags:
  *       - User
- *     summary: login - Авторизация пользователя
+ *     summary: refresh - Авторизация пользователя
  *     description: Проверяет учетные данные пользователя (имя и пароль), генерирует токены и возвращает их в ответ.
+ *     operationId: refresh
  *     requestBody:
  *       required: true
  *       content:
@@ -138,12 +171,13 @@ userRouter.post("/login", userController.login);
 userRouter.post("/refresh", userController.refresh);
 /**
  * @swagger
- * /checkAuth:
+ * user/checkAuth:
  *   get:
  *     tags:
  *       - User
  *     summary: checkAuth - Проверка авторизации пользователя
  *     description: Проверяет, существует ли пользователь в базе данных, и генерирует новый токен авторизации для пользователя.
+ *     operationId: checkAuth
  *     responses:
  *       200:
  *         description: Новый токен авторизации
@@ -169,12 +203,13 @@ userRouter.post("/refresh", userController.refresh);
 userRouter.get("/checkAuth", authMiddleware, userController.checkAuth);
 /**
  * @swagger
- * /getUsers:
+ * user/getUsers:
  *   get:
  *     tags:
  *       - User
  *     summary: getUsers - Получение списка всех пользователей
  *     description: Возвращает список всех пользователей в базе данных, включая их username, роль и ID.
+ *     operationId: getUsers
  *     responses:
  *       200:
  *         description: Список пользователей

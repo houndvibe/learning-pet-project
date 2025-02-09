@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
-import { useLoginMutation } from "~shared/api/apiSlice";
+
 import { useTypedDispatch } from "~app/store/typedHooks";
-import { signIn } from "~features/Auth/model/authSlice";
+import { signIn } from "~features/auth/model/authSlice";
+import { useLoginMutation } from "~shared/api/generatedApi";
 
 interface Props {
   username: string;
@@ -19,8 +20,10 @@ export const LogIn: React.FC<Props> = ({ username, password, text }) => {
   const handleSubmit = async () => {
     try {
       const loginPayload = await getToken({
-        username,
-        password,
+        body: {
+          username,
+          password,
+        },
       }).unwrap();
 
       if (loginPayload.token) {

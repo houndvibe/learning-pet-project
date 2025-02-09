@@ -1,8 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useLazyCheckAuthQuery } from "~shared/api/apiSlice";
+
 import store from "~app/store/rootStore";
 import { AuthorisedUiFrame } from "~widgets/AuthorisedUi";
+import { useLazyCheckAuthQuery } from "~shared/api/generatedApi";
 
 export const AuthorisedRoutes = () => {
   const [checkAuth] = useLazyCheckAuthQuery();
@@ -14,7 +15,7 @@ export const AuthorisedRoutes = () => {
   useEffect(() => {
     //не чекаем авторизацию на странице авторизации
     if (authorized) {
-      checkAuth({});
+      checkAuth();
     }
   }, [checkAuth]);
 
