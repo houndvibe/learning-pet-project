@@ -100,7 +100,7 @@ class UserController {
 
     if (!users) return next(ApiError.internal("Список юзеров пуст"));
 
-    const formatedUsers = await users.map(({ username, role, id }) => {
+    const data = await users.map(({ username, role, id }) => {
       return {
         username,
         role,
@@ -108,7 +108,7 @@ class UserController {
       };
     });
 
-    return res.json({ formatedUsers });
+    return res.json({ data });
   }
 }
 
