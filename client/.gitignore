@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Игнорировать сгенерированный API-клиент
+src/shared/api/generatedApi.ts
