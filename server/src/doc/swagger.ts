@@ -4,9 +4,9 @@ const options: swaggerJsdoc.Options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Express API with RTKQ",
+      title: "Pet-project API",
       version: "1.0.0",
-      description: "API documentation for Express + RTKQ project",
+      description: "API documentation for Express + RTKQ Pet-project",
     },
     servers: [
       {

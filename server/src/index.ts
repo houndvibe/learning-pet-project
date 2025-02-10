@@ -22,9 +22,9 @@ app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
 app.use("/api", router);
 app.use(errorHandler);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+app.use("/doc", swaggerUi.serve, swaggerUi.setup(specs));
 app.use(
-  "/api-docs-redoc",
+  "/redoc",
   redoc({
     title: "API Documentation",
     specUrl: "/api-docs/swagger.json",
