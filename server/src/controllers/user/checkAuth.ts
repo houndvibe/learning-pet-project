@@ -8,11 +8,7 @@ export const checkAuth = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const token = UserController.generateJwt(
-    req.user.id,
-    req.user.username,
-    req.user.role
-  );
+  const token = UserController.generateJwt(req.user);
 
   const user = await User.findOne({ where: { username: req.user.username } });
 

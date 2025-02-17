@@ -20,11 +20,7 @@ export const refresh = async (
     (err: any, user: any) => {
       if (err)
         return next(ApiError.forbidden("Недействительный refresh-токен"));
-      const token = UserController.generateJwt(
-        user.id,
-        user.username,
-        user.role
-      );
+      const token = UserController.generateJwt(user);
       res.json({ token });
     }
   );

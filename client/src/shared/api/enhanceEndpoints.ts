@@ -1,14 +1,16 @@
-import { apiSlice as api } from "./apiSlice";
+import { injectedRtkApi } from "./generatedApi";
 
-export const enhancedApi = api.enhanceEndpoints({
+export const enhancedApi = injectedRtkApi.enhanceEndpoints({
   addTagTypes: ["User"],
-  //почему то не работают
   endpoints: {
-    getUsers(endpoint) {
-      endpoint.providesTags = ["User"];
+    getUsers: {
+      providesTags: ["User"],
     },
-    login(endpoint) {
-      endpoint.invalidatesTags = ["User"];
+    deleteUser: {
+      invalidatesTags: ["User"],
     },
   },
 });
+
+export const { useGetUsersQuery, useLazyGetUsersQuery, useDeleteUserMutation } =
+  enhancedApi;

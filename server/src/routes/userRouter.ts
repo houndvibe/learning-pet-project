@@ -247,4 +247,63 @@ userRouter.get("/checkAuth", authMiddleware, userController.checkAuth);
 
 userRouter.get("/getUsers", authMiddleware, userController.getUsers);
 
+/**
+ * @swagger
+ * user/deleteUser:
+ *   delete:
+ *     tags:
+ *       - User
+ *     summary: deleteUser - Удаление пользователя по ID
+ *     description: Удаляет пользователя из базы данных по его ID.
+ *     operationId: deleteUser
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: Идентификатор пользователя, которого нужно удалить.
+ *                 example: 1
+ *             required:
+ *               - userId
+ *     responses:
+ *       200:
+ *         description: Пользователь успешно удален.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Сообщение об успешном удалении.
+ *                   example: Пользователь успешно удален
+ *       404:
+ *         description: Пользователь не найден.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Сообщение об ошибке.
+ *                   example: Пользователь не найден
+ *       500:
+ *         description: Внутренняя ошибка сервера.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Описание ошибки.
+ *                   example: Произошла ошибка при удалении пользователя
+ */
+userRouter.delete("/deleteUser", authMiddleware, userController.deleteUser);
+
 export default userRouter;

@@ -23,16 +23,9 @@ export const login = async (
     return next(ApiError.internal("Указан неверный пароль"));
   }
 
-  const token: string = UserController.generateJwt(
-    user.id,
-    user.username,
-    user.role
-  );
-  const refreshToken: string = UserController.generateRefreshJwt(
-    user.id,
-    user.username,
-    user.role
-  );
+  const token: string = UserController.generateJwt(user);
+  const refreshToken: string = UserController.generateRefreshJwt(user);
+
   res.cookie("refreshToken", refreshToken, { httpOnly: true });
   res.json({ token });
 };

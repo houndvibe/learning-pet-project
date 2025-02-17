@@ -1,10 +1,36 @@
-import { Table } from "antd";
-import { useGetUsersQuery } from "~shared/api/generatedApi";
+import { Table, TableColumnsType } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
+import {
+  useDeleteUserMutation,
+  useGetUsersQuery,
+} from "~shared/api/enhanceEndpoints";
 
 export const UsersPage = () => {
   const { data, isLoading } = useGetUsersQuery();
 
-  const columns = [
+  const [delteUser] = useDeleteUserMutation();
+
+  const handleDeleteUser = async (userId: string) => {
+    try {
+      await delteUser({
+        body: {
+          userId,
+        },
+      }).unwrap();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  interface DataType {
+    key: string;
+    username: string;
+    role: "USER" | "ADMIN";
+    id: string;
+    dataIndex: JSX.Element;
+  }
+
+  const columns: TableColumnsType<DataType> = [
     {
       title: "Username",
       dataIndex: "username",
@@ -19,6 +45,18 @@ export const UsersPage = () => {
       title: "ID",
       dataIndex: "id",
       key: "id",
+    },
+    {
+      title: "",
+      dataIndex: "actions",
+      key: "actions",
+      width: "20px",
+      render: (_, record) => (
+        <DeleteOutlined
+          style={{ color: "red" }}
+          onClick={() => handleDeleteUser(record.id)}
+        />
+      ),
     },
   ];
 

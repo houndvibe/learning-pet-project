@@ -5,7 +5,7 @@ const config: ConfigFile = {
   apiFile: "./src/shared/api/apiSlice.ts", // Базовый API
   apiImport: "apiSlice",
   outputFile: "./src/shared/api/generatedApi.ts",
-  exportName: "userApi",
+  exportName: "injectedRtkApi",
   hooks: { queries: true, lazyQueries: true, mutations: true },
 };
 
