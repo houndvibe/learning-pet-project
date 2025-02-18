@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
 
-import { signIn } from "~features/auth/model/authSlice";
+import { signIn } from "~features/Auth/model/authSlice";
 import React from "react";
 import { useTypedDispatch } from "~app/store/typedHooks";
 import { useRegistrationMutation } from "~shared/api/generatedApi";

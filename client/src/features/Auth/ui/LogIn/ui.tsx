@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
 
 import { useTypedDispatch } from "~app/store/typedHooks";
-import { signIn } from "~features/auth/model/authSlice";
+import { signIn } from "~features/Auth/model/authSlice";
 import { useLoginMutation } from "~shared/api/generatedApi";
 
 interface Props {

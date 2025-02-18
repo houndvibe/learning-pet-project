@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
-import { signOut } from "~features/auth/model/authSlice";
+import { signOut } from "~features/Auth/model/authSlice";
 import { useTypedDispatch } from "~app/store/typedHooks";
 
 export const LogOut = () => {

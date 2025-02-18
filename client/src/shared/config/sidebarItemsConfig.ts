@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons";
 import { AntdIconProps } from "@ant-design/icons/lib/components/AntdIcon";
 import { Dispatch } from "redux";
-import { signOut } from "~features/auth/model/authSlice";
+import { signOut } from "~features/Auth/model/authSlice";
 import { showConfirmModal } from "~features/showConfirmModal";
 
 export interface SidebarItemsProps {
