@@ -37,6 +37,9 @@ const baseQueryWithAuth: BaseQueryFn<
   return result;
 };
 
+type RefreshResultDataType = {
+  token: string;
+};
 const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,
   unknown,
@@ -53,7 +56,7 @@ const baseQueryWithReauth: BaseQueryFn<
       extraOptions
     );
     if (refreshResult?.data) {
-      api.dispatch(signIn(refreshResult.data.token));
+      api.dispatch(signIn((refreshResult.data as RefreshResultDataType).token));
       result = await baseQueryWithAuth(args, api, extraOptions);
     } else {
       api.dispatch(signOut());
@@ -65,6 +68,5 @@ const baseQueryWithReauth: BaseQueryFn<
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReauth,
-  keepUnusedDataFor: 0,
   endpoints: () => ({}),
 });

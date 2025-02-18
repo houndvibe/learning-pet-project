@@ -1,12 +1,13 @@
-import { Table, TableColumnsType } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
+import { Alert, notification, Table } from "antd";
 import {
   useDeleteUserMutation,
   useGetUsersQuery,
 } from "~shared/api/enhanceEndpoints";
+import { getUserListColumns } from "./model";
+import { useMemo } from "react";
 
 export const UsersPage = () => {
-  const { data, isLoading } = useGetUsersQuery();
+  const { data, isLoading, error } = useGetUsersQuery();
 
   const [delteUser] = useDeleteUserMutation();
 
@@ -17,53 +18,23 @@ export const UsersPage = () => {
           userId,
         },
       }).unwrap();
+      notification.success({ message: "Пользователь удален" });
     } catch (error) {
       console.error(error);
+      notification.error({ message: "Не удалось удалить пользователя" });
     }
   };
 
-  interface DataType {
-    key: string;
-    username: string;
-    role: "USER" | "ADMIN";
-    id: string;
-    dataIndex: JSX.Element;
-  }
+  const dataSource = useMemo(() => {
+    return data?.data.map((item) => ({ ...item, key: item.id })) || [];
+  }, [data]);
 
-  const columns: TableColumnsType<DataType> = [
-    {
-      title: "Username",
-      dataIndex: "username",
-      key: "username",
-    },
-    {
-      title: "Role",
-      dataIndex: "role",
-      key: "role",
-    },
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-    },
-    {
-      title: "",
-      dataIndex: "actions",
-      key: "actions",
-      width: "20px",
-      render: (_, record) => (
-        <DeleteOutlined
-          style={{ color: "red" }}
-          onClick={() => handleDeleteUser(record.id)}
-        />
-      ),
-    },
-  ];
-
-  return (
+  return error ? (
+    <Alert message="Ошибка загрузки пользователей" type="error" />
+  ) : (
     <Table
-      columns={columns}
-      dataSource={data?.data?.map((item) => ({ ...item, key: item.id }))}
+      columns={getUserListColumns(handleDeleteUser)}
+      dataSource={dataSource}
       loading={isLoading}
     />
   );

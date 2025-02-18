@@ -6,7 +6,7 @@ const userRouter = Router();
 
 /**
  * @swagger
- * user/registration:
+ * /user/registration:
  *   post:
  *     tags:
  *       - User
@@ -29,9 +29,13 @@ const userRouter = Router();
  *               role:
  *                 type: string
  *                 enum:
- *                  - USER
- *                  - ADMIN
+ *                   - USER
+ *                   - ADMIN
  *                 description: Роль пользователя.
+ *             required:
+ *               - username
+ *               - password
+ *               - role
  *     responses:
  *       200:
  *         description: Токен авторизации
@@ -43,6 +47,8 @@ const userRouter = Router();
  *                 token:
  *                   type: string
  *                   description: Токен для доступа к защищенным маршрутам.
+ *               required:
+ *                 - token
  *       400:
  *         description: Некорректный запрос (например, если username или password пустые).
  *         content:
@@ -57,7 +63,7 @@ const userRouter = Router();
 userRouter.post("/registration", userController.registration);
 /**
  * @swagger
- * user/login:
+ * /user/login:
  *   post:
  *     tags:
  *       - User
@@ -77,6 +83,9 @@ userRouter.post("/registration", userController.registration);
  *               password:
  *                 type: string
  *                 description: Пароль пользователя
+ *             required:
+ *               - username
+ *               - password
  *     responses:
  *       200:
  *         description: Успешная аутентификация
@@ -88,6 +97,8 @@ userRouter.post("/registration", userController.registration);
  *                 token:
  *                   type: string
  *                   description: JWT-токен для доступа к защищенным маршрутам.
+ *               required:
+ *                 - token
  *         headers:
  *           Set-Cookie:
  *             schema:
@@ -137,6 +148,9 @@ userRouter.post("/login", userController.login);
  *               password:
  *                 type: string
  *                 description: Пароль пользователя.
+ *             required:
+ *               - username
+ *               - password
  *     responses:
  *       200:
  *         description: Токен авторизации
@@ -218,20 +232,29 @@ userRouter.get("/checkAuth", authMiddleware, userController.checkAuth);
  *           application/json:
  *             schema:
  *               type: object
+ *               required:
+ *                 - data
  *               properties:
  *                 data:
  *                   type: array
  *                   items:
  *                     type: object
+ *                     required:
+ *                       - id
+ *                       - username
+ *                       - role
  *                     properties:
  *                       id:
- *                         type: number
+ *                         type: string
  *                         description: Идентификатор пользователя.
  *                       username:
  *                         type: string
  *                         description: Имя пользователя.
  *                       role:
  *                         type: string
+ *                         enum:
+ *                          - USER
+ *                          - ADMIN
  *                         description: Роль пользователя.
  *       500:
  *         description: Ошибка получения списка пользователей.
@@ -239,6 +262,8 @@ userRouter.get("/checkAuth", authMiddleware, userController.checkAuth);
  *           application/json:
  *             schema:
  *               type: object
+ *               required:
+ *                 - message
  *               properties:
  *                 message:
  *                   type: string
