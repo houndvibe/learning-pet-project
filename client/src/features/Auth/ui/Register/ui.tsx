@@ -4,7 +4,7 @@ import { Button } from "antd";
 import { signIn } from "~features/Auth/model/authSlice";
 import React from "react";
 import { useTypedDispatch } from "~app/store/typedHooks";
-import { useRegistrationMutation } from "~shared/api/generatedApi";
+import { useRegistrationMutation } from "~shared/api/enhanceEndpoints";
 
 interface Props {
   username: string;

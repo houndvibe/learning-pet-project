@@ -10,7 +10,7 @@ export const checkAuth = async (
 ): Promise<void> => {
   const token = UserController.generateJwt(req.user);
 
-  const user = await User.findOne({ where: { username: req.user.username } });
+  const user = await User.findOne({ where: { id: req.user.id } });
 
   if (!user) {
     return next(ApiError.internal("Пользователь был удален из базы"));

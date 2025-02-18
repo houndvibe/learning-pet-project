@@ -1,4 +1,4 @@
-import { TableColumnsType } from "antd";
+import { Select, TableColumnsType, Typography } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 
 export interface DataType {
@@ -9,18 +9,42 @@ export interface DataType {
 }
 
 export const getUserListColumns = (
-  handler: (userId: string) => void
+  onDelete: (userId: string) => void,
+  handleUpdateUser: (data: DataType) => void
 ): TableColumnsType<DataType> => {
   return [
     {
       title: "Username",
       dataIndex: "username",
       key: "username",
+      width: 300,
+      render: (value, record) => (
+        <Typography.Text
+          editable={{
+            onChange: (value) =>
+              handleUpdateUser({ ...record, username: value }),
+            triggerType: ["icon", "text"],
+          }}
+        >
+          {value}
+        </Typography.Text>
+      ),
     },
     {
       title: "Role",
       dataIndex: "role",
       key: "role",
+      width: 300,
+      render: (value, record) => (
+        <Select
+          style={{ width: "100px" }}
+          value={value}
+          onChange={(value) => handleUpdateUser({ ...record, role: value })}
+        >
+          <Select.Option value={"ADMIN"}>{"ADMIN"}</Select.Option>
+          <Select.Option value={"USER"}>{"USER"}</Select.Option>
+        </Select>
+      ),
     },
     {
       title: "ID",
@@ -35,7 +59,7 @@ export const getUserListColumns = (
       render: (_, record) => (
         <DeleteOutlined
           style={{ color: "red" }}
-          onClick={() => handler(record.id)}
+          onClick={() => onDelete(record.id)}
         />
       ),
     },

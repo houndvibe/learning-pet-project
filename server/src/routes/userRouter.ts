@@ -330,5 +330,92 @@ userRouter.get("/getUsers", authMiddleware, userController.getUsers);
  *                   example: Произошла ошибка при удалении пользователя
  */
 userRouter.delete("/deleteUser", authMiddleware, userController.deleteUser);
+/**
+ * @swagger
+ * user/updateUser:
+ *   put:
+ *     tags:
+ *       - User
+ *     summary: updateUser - Редактирование пользователя по ID
+ *     description: Обновляет данные пользователя (имя или роль) по его ID.
+ *     operationId: updateUser
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: integer
+ *                 description: Идентификатор пользователя.
+ *                 example: 1
+ *               username:
+ *                 type: string
+ *                 description: Новое имя пользователя.
+ *                 example: newUsername
+ *               role:
+ *                 type: string
+ *                 enum: [USER, ADMIN]
+ *                 description: Новая роль пользователя.
+ *                 example: ADMIN
+ *             required:
+ *               - id
+ *               - username
+ *     responses:
+ *       200:
+ *         description: Пользователь успешно обновлен.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   description: Идентификатор пользователя.
+ *                   example: 1
+ *                 username:
+ *                   type: string
+ *                   description: Обновленное имя пользователя.
+ *                   example: newUsername
+ *                 role:
+ *                   type: string
+ *                   description: Обновленная роль пользователя.
+ *                   example: ADMIN
+ *       400:
+ *         description: Некорректные данные или имя пользователя уже занято.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Сообщение об ошибке.
+ *                   example: Пользователь с таким username уже существует
+ *       404:
+ *         description: Пользователь не найден.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Сообщение об ошибке.
+ *                   example: Пользователь не найден
+ *       500:
+ *         description: Внутренняя ошибка сервера.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Описание ошибки.
+ *                   example: Произошла ошибка при обновлении пользователя
+ */
+userRouter.put("/updateUser", authMiddleware, userController.updateUser);
 
 export default userRouter;

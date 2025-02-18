@@ -7,6 +7,7 @@ import { getUsers } from "./getUsers";
 import { deleteUser } from "./deleteUser";
 import jwt from "jsonwebtoken";
 import { User } from "database/database";
+import { updateUser } from "./updateUser";
 
 export class UserController {
   public static generateJwt = ({ id, username, role }: User): string => {
@@ -43,6 +44,9 @@ export class UserController {
 
   async deleteUser(req: Request, res: Response, next: NextFunction) {
     return deleteUser(req, res, next);
+  }
+  async updateUser(req: Request, res: Response, next: NextFunction) {
+    return updateUser(req, res, next);
   }
 }
 

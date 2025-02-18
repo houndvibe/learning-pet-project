@@ -9,8 +9,19 @@ export const enhancedApi = injectedRtkApi.enhanceEndpoints({
     deleteUser: {
       invalidatesTags: ["User"],
     },
+    updateUser: {
+      invalidatesTags: ["User"],
+    },
+    registration: {
+      invalidatesTags: ["User"],
+    },
   },
 });
 
-export const { useGetUsersQuery, useLazyGetUsersQuery, useDeleteUserMutation } =
-  enhancedApi;
+export const {
+  useGetUsersQuery,
+  useLazyGetUsersQuery,
+  useDeleteUserMutation,
+  useRegistrationMutation,
+  useUpdateUserMutation,
+} = enhancedApi;
