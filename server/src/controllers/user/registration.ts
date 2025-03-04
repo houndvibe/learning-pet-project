@@ -9,7 +9,7 @@ export const registration = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { username, password, role } = req.body;
+  const { username, password, role }: User = req.body;
 
   if (!username || !password) {
     return next(ApiError.badRequest("Некорректный username или пароль"));

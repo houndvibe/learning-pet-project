@@ -1,0 +1,8 @@
+const path = require('path');
+
+module.exports = {
+  config: path.resolve('config', 'config.js'), // Указываем путь к конфигурации
+  'models-path': path.resolve('models'), // Указываем путь к моделям
+  'seeders-path': path.resolve('seeders'), // Указываем путь к сидерам
+  'migrations-path': path.resolve('migrations'), // Указываем путь к миграциям
+};

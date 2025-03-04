@@ -6,6 +6,8 @@ export interface DataType {
   username: string;
   role: "USER" | "ADMIN";
   id: string;
+  avatar: string;
+  email: string;
 }
 
 export const getUserListColumns = (
@@ -50,6 +52,18 @@ export const getUserListColumns = (
       title: "ID",
       dataIndex: "id",
       key: "id",
+    },
+    {
+      title: "E-mail",
+      dataIndex: "email",
+      key: "email",
+      render: (value) => (value ? value : "-"),
+    },
+    {
+      title: "avatar",
+      dataIndex: "avatar",
+      key: "avatar",
+      render: (value) => (value ? value : "-"),
     },
     {
       title: "",

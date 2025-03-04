@@ -162,6 +162,8 @@ userRouter.post("/login", userController.login);
  *                 token:
  *                   type: string
  *                   description: Токен для доступа к защищенным маршрутам.
+ *               required:
+ *                 - token
  *       400:
  *         description: Некорректный запрос (например, если username или password пустые).
  *         content:
@@ -204,6 +206,8 @@ userRouter.post("/refresh", userController.refresh);
  *                 token:
  *                   type: string
  *                   description: Новый токен для доступа к защищенным маршрутам.
+ *               required:
+ *                 - token
  *       404:
  *         description: Пользователь не найден или был удален из базы данных.
  *         content:
@@ -243,6 +247,8 @@ userRouter.get("/checkAuth", authMiddleware, userController.checkAuth);
  *                       - id
  *                       - username
  *                       - role
+ *                       - email
+ *                       - avatar
  *                     properties:
  *                       id:
  *                         type: string
@@ -256,6 +262,12 @@ userRouter.get("/checkAuth", authMiddleware, userController.checkAuth);
  *                          - USER
  *                          - ADMIN
  *                         description: Роль пользователя.
+ *                       email:
+ *                         type: string
+ *                         description: Почта пользователя.
+ *                       avatar:
+ *                         type: string
+ *                         description: Аватар пользователя.
  *       500:
  *         description: Ошибка получения списка пользователей.
  *         content:
@@ -347,7 +359,7 @@ userRouter.delete("/deleteUser", authMiddleware, userController.deleteUser);
  *             type: object
  *             properties:
  *               id:
- *                 type: integer
+ *                 type: string
  *                 description: Идентификатор пользователя.
  *                 example: 1
  *               username:
@@ -359,9 +371,14 @@ userRouter.delete("/deleteUser", authMiddleware, userController.deleteUser);
  *                 enum: [USER, ADMIN]
  *                 description: Новая роль пользователя.
  *                 example: ADMIN
+ *               email:
+ *                 type: string
+ *                 description: Почта пользователя.
+ *               avatar:
+ *                 type: string
+ *                 description: Аватар пользователя.
  *             required:
  *               - id
- *               - username
  *     responses:
  *       200:
  *         description: Пользователь успешно обновлен.
@@ -371,7 +388,7 @@ userRouter.delete("/deleteUser", authMiddleware, userController.deleteUser);
  *               type: object
  *               properties:
  *                 id:
- *                   type: integer
+ *                   type: string
  *                   description: Идентификатор пользователя.
  *                   example: 1
  *                 username:
@@ -382,6 +399,12 @@ userRouter.delete("/deleteUser", authMiddleware, userController.deleteUser);
  *                   type: string
  *                   description: Обновленная роль пользователя.
  *                   example: ADMIN
+ *                 email:
+ *                   type: string
+ *                   description: Почта пользователя.
+ *                 avatar:
+ *                   type: string
+ *                   description: Аватар пользователя.
  *       400:
  *         description: Некорректные данные или имя пользователя уже занято.
  *         content:

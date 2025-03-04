@@ -9,7 +9,7 @@ export const login = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { username, password } = req.body;
+  const { username, password }: User = req.body;
 
   const user = await User.findOne({ where: { username } });
 

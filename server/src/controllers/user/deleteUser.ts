@@ -7,10 +7,10 @@ export const deleteUser = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { userId } = req.body;
+  const { id }: User = req.body;
 
   try {
-    const user = await User.findByPk(userId);
+    const user = await User.findByPk(id);
 
     if (!user) {
       return next(ApiError.internal("Пользователь не найден"));

@@ -15,14 +15,22 @@ export class User extends Model {
   declare id: string;
   declare username: string;
   declare password: string;
+  declare email: string;
+  declare avatar: string;
   declare role: CreationOptional<"USER" | "ADMIN">;
 }
 
 User.init(
   {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+    },
     username: { type: DataTypes.STRING, unique: true, allowNull: false },
     password: { type: DataTypes.STRING, allowNull: false },
+    email: { type: DataTypes.STRING, unique: true, allowNull: true },
+    avatar: { type: DataTypes.STRING, allowNull: true },
     role: { type: DataTypes.STRING, defaultValue: "USER" },
   },
   {

@@ -31,9 +31,11 @@ export const UsersPage = () => {
     try {
       await updateUser({
         body: {
-          id: +data.id,
+          id: data.id,
           username: data.username,
           role: data.role,
+          email: data.email,
+          avatar: data.avatar,
         },
       }).unwrap();
       notification.success({ message: "Инфо о пользователе обновлено" });
