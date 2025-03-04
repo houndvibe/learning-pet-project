@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UserRoles } from "~shared/api/userEndpoints";
 
 export interface UserData {
   id: string;
-  role: "ADMIN" | "USER";
+  role: UserRoles;
   username: string;
   email?: string | undefined;
   avatar?: string | undefined;

@@ -1,12 +1,12 @@
 import { Alert, notification, Table } from "antd";
+import { DataType, getUserListColumns } from "./model";
+import { useMemo } from "react";
+import { useAuth } from "~features/Auth/model/selector";
 import {
   useDeleteUserMutation,
   useGetUsersQuery,
   useUpdateUserMutation,
-} from "~shared/api/enhanceEndpoints";
-import { DataType, getUserListColumns } from "./model";
-import { useMemo } from "react";
-import { useAuth } from "~features/Auth/model/selector";
+} from "~shared/api/userEndpoints";
 
 export const UsersPage = () => {
   const { data, isLoading, error } = useGetUsersQuery();

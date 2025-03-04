@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import store from "~app/store/rootStore";
 import { AuthorisedUiFrame } from "~widgets/AuthorisedUi";
-import { useLazyCheckAuthQuery } from "~shared/api/generatedApi";
+import { useLazyCheckAuthQuery } from "~shared/api/userEndpoints";
 
 export const AuthorisedRoutes = () => {
   const [checkAuth] = useLazyCheckAuthQuery();

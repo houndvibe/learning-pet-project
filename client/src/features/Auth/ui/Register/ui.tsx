@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
-
 import { signIn, setUserData } from "~features/Auth/model/authSlice";
 import React from "react";
 import { useTypedDispatch } from "~app/store/typedHooks";
-import { useRegistrationMutation } from "~shared/api/enhanceEndpoints";
+import { useRegistrationMutation } from "~shared/api/userEndpoints";
 
 interface Props {
   username: string;

@@ -3,7 +3,7 @@ import { Button } from "antd";
 
 import { useTypedDispatch } from "~app/store/typedHooks";
 import { setUserData, signIn } from "~features/Auth/model/authSlice";
-import { useLoginMutation } from "~shared/api/generatedApi";
+import { useLoginMutation } from "~shared/api/userEndpoints";
 
 interface Props {
   username: string;

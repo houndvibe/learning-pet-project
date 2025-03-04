@@ -1,11 +1,12 @@
 import { Select, TableColumnsType, Typography } from "antd";
 import { DeleteOutlined, UserOutlined } from "@ant-design/icons";
+import { UserRoles } from "~shared/api/userEndpoints";
 
 export interface DataType {
   id: string;
   key: string;
   username: string;
-  role: "ADMIN" | "USER";
+  role: UserRoles;
   avatar?: string | undefined;
   email?: string | undefined;
 }

@@ -1,19 +1,20 @@
-import { injectedRtkApi } from "./generatedApi";
+/* import { injectedRtkApi } from "./generatedApi";
 
+// Добавляем теги сегенерированному api
 export const enhancedApi = injectedRtkApi.enhanceEndpoints({
-  addTagTypes: ["User"],
+  addTagTypes: ["Users"],
   endpoints: {
     getUsers: {
-      providesTags: ["User"],
+      providesTags: ["Users"],
     },
     deleteUser: {
-      invalidatesTags: ["User"],
+      invalidatesTags: ["Users"],
     },
     updateUser: {
-      invalidatesTags: ["User"],
+      invalidatesTags: ["Users"],
     },
     registration: {
-      invalidatesTags: ["User"],
+      invalidatesTags: ["Users"],
     },
   },
 });
@@ -25,3 +26,4 @@ export const {
   useRegistrationMutation,
   useUpdateUserMutation,
 } = enhancedApi;
+ */
