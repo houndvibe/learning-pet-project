@@ -55,21 +55,22 @@ const userRouter = Router();
  *                     - role
  *                   properties:
  *                     id:
- *                       type: integer
+ *                       type: string
  *                       description: Уникальный идентификатор пользователя.
  *                     username:
  *                       type: string
  *                       description: Имя пользователя.
  *                     email:
  *                       type: string
- *                       nullable: true
  *                       description: Электронная почта пользователя.
  *                     role:
  *                       type: string
+ *                       enum:
+ *                        - USER
+ *                        - ADMIN
  *                       description: Роль пользователя.
  *                     avatar:
  *                       type: string
- *                       nullable: true
  *                       description: Ссылка на аватар пользователя.
  *               required:
  *                 - token
@@ -131,21 +132,22 @@ userRouter.post("/registration", userController.registration);
  *                     - role
  *                   properties:
  *                     id:
- *                       type: integer
+ *                       type: string
  *                       description: Уникальный идентификатор пользователя.
  *                     username:
  *                       type: string
  *                       description: Имя пользователя.
  *                     email:
  *                       type: string
- *                       nullable: true
  *                       description: Электронная почта пользователя.
  *                     role:
  *                       type: string
+ *                       enum:
+ *                        - USER
+ *                        - ADMIN
  *                       description: Роль пользователя.
  *                     avatar:
  *                       type: string
- *                       nullable: true
  *                       description: Ссылка на аватар пользователя.
  *               required:
  *                 - token

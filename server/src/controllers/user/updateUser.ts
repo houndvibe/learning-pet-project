@@ -7,7 +7,7 @@ export const updateUser = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { username, role, id }: User = req.body;
+  const { username, role, id, email }: User = req.body;
 
   try {
     const user = await User.findOne({ where: { id } });
@@ -24,7 +24,7 @@ export const updateUser = async (
       }
     }
 
-    await User.update({ username, role }, { where: { id } });
+    await User.update({ username, role, email }, { where: { id } });
 
     const updatedUser = await User.findOne({ where: { id } });
     res.json(updatedUser);

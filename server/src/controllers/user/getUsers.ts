@@ -13,10 +13,12 @@ export const getUsers = async (
     return next(ApiError.internal("Список пользователей пуст"));
   }
 
-  const data = users.map(({ username, role, id }) => ({
+  const data = users.map(({ username, role, id, email, avatar }) => ({
     username,
     role,
     id,
+    email,
+    avatar,
   }));
 
   res.json({ data });
