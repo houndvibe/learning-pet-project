@@ -397,7 +397,8 @@ userRouter.delete("/deleteUser", authMiddleware, userController.deleteUser);
  *                   example: newUsername
  *                 role:
  *                   type: string
- *                   description: Обновленная роль пользователя.
+ *                   enum: [USER, ADMIN]
+ *                   description: Новая роль пользователя.
  *                   example: ADMIN
  *                 email:
  *                   type: string
@@ -405,6 +406,8 @@ userRouter.delete("/deleteUser", authMiddleware, userController.deleteUser);
  *                 avatar:
  *                   type: string
  *                   description: Аватар пользователя.
+ *               required:
+ *                 - id
  *       400:
  *         description: Некорректные данные или имя пользователя уже занято.
  *         content:
