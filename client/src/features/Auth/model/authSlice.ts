@@ -1,13 +1,28 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export interface UserData {
+  id: string;
+  role: "ADMIN" | "USER";
+  username: string;
+  email?: string | undefined;
+  avatar?: string | undefined;
+}
 export interface AuthSlice {
   authorized: boolean;
   accessToken: string;
+  userData: UserData;
 }
 
 const initialState: AuthSlice = {
   authorized: localStorage.getItem("authToken") !== null ? true : false,
   accessToken: localStorage.getItem("authToken") || "",
+  userData: JSON.parse(localStorage.getItem("userData") as string) || {
+    id: "",
+    role: "USER",
+    username: "",
+    email: undefined,
+    avatar: undefined,
+  },
 };
 
 export const authSlice = createSlice({
@@ -24,7 +39,11 @@ export const authSlice = createSlice({
       state.accessToken = "";
       localStorage.removeItem("authToken");
     },
+    setUserData(state, action: PayloadAction<UserData>) {
+      state.userData = action.payload;
+      localStorage.setItem("userData", `${JSON.stringify(action.payload)}`);
+    },
   },
 });
 
-export const { signIn, signOut } = authSlice.actions;
+export const { signIn, signOut, setUserData } = authSlice.actions;

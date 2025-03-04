@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
 
-import { signIn } from "~features/Auth/model/authSlice";
+import { signIn, setUserData } from "~features/Auth/model/authSlice";
 import React from "react";
 import { useTypedDispatch } from "~app/store/typedHooks";
 import { useRegistrationMutation } from "~shared/api/enhanceEndpoints";
@@ -29,6 +29,7 @@ export const Register: React.FC<Props> = ({ username, password, text }) => {
       }).unwrap();
       if (registrationPayload.token) {
         dispatch(signIn(registrationPayload.token));
+        dispatch(setUserData(registrationPayload.user));
         navigate("/");
       }
     } catch (error) {

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
 
 import { useTypedDispatch } from "~app/store/typedHooks";
-import { signIn } from "~features/Auth/model/authSlice";
+import { setUserData, signIn } from "~features/Auth/model/authSlice";
 import { useLoginMutation } from "~shared/api/generatedApi";
 
 interface Props {
@@ -26,10 +26,9 @@ export const LogIn: React.FC<Props> = ({ username, password, text }) => {
         },
       }).unwrap();
 
-      if (loginPayload.token) {
-        dispatch(signIn(loginPayload.token));
-        navigate("/");
-      }
+      dispatch(signIn(loginPayload.token));
+      dispatch(setUserData(loginPayload.user));
+      navigate("/");
     } catch (e) {
       console.log(e);
     }

@@ -1,16 +1,17 @@
 import { Select, TableColumnsType, Typography } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, UserOutlined } from "@ant-design/icons";
 
 export interface DataType {
+  id: string;
   key: string;
   username: string;
-  role: "USER" | "ADMIN";
-  id: string;
-  avatar: string;
-  email: string;
+  role: "ADMIN" | "USER";
+  avatar?: string | undefined;
+  email?: string | undefined;
 }
 
 export const getUserListColumns = (
+  id: string,
   onDelete: (userId: string) => void,
   handleUpdateUser: (data: DataType) => void
 ): TableColumnsType<DataType> => {
@@ -57,10 +58,19 @@ export const getUserListColumns = (
       title: "E-mail",
       dataIndex: "email",
       key: "email",
-      render: (value) => (value ? value : "-"),
+      render: (value, record) => (
+        <Typography.Text
+          editable={{
+            onChange: (value) => handleUpdateUser({ ...record, email: value }),
+            triggerType: ["icon", "text"],
+          }}
+        >
+          {value ? value : "-"}
+        </Typography.Text>
+      ),
     },
     {
-      title: "avatar",
+      title: "Avatar",
       dataIndex: "avatar",
       key: "avatar",
       render: (value) => (value ? value : "-"),
@@ -70,12 +80,16 @@ export const getUserListColumns = (
       dataIndex: "actions",
       key: "actions",
       width: "20px",
-      render: (_, record) => (
-        <DeleteOutlined
-          style={{ color: "red" }}
-          onClick={() => onDelete(record.id)}
-        />
-      ),
+      render: (_, record) => {
+        return record.id !== id ? (
+          <DeleteOutlined
+            style={{ color: "red" }}
+            onClick={() => onDelete(record.id)}
+          />
+        ) : (
+          <UserOutlined />
+        );
+      },
     },
   ];
 };

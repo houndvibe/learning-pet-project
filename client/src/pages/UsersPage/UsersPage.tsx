@@ -6,9 +6,12 @@ import {
 } from "~shared/api/enhanceEndpoints";
 import { DataType, getUserListColumns } from "./model";
 import { useMemo } from "react";
+import { useAuth } from "~features/Auth/model/selector";
 
 export const UsersPage = () => {
   const { data, isLoading, error } = useGetUsersQuery();
+
+  const { userData } = useAuth();
 
   const [delteUser] = useDeleteUserMutation();
   const [updateUser] = useUpdateUserMutation();
@@ -55,7 +58,11 @@ export const UsersPage = () => {
     <Alert message="Ошибка загрузки пользователей" type="error" />
   ) : (
     <Table
-      columns={getUserListColumns(handleDeleteUser, updateUserInfo)}
+      columns={getUserListColumns(
+        userData.id,
+        handleDeleteUser,
+        updateUserInfo
+      )}
       dataSource={dataSource}
       loading={isLoading}
     />
