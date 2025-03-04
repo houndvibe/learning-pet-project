@@ -33,5 +33,14 @@ export const registration = async (
   const refreshToken: string = UserController.generateRefreshJwt(user);
 
   res.cookie("refreshToken", refreshToken, { httpOnly: true });
-  res.json({ token });
+  res.json({
+    token,
+    user: {
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      role: user.role,
+      avatar: user.avatar,
+    },
+  });
 };

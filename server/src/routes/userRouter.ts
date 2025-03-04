@@ -10,8 +10,8 @@ const userRouter = Router();
  *   post:
  *     tags:
  *       - User
- *     summary: registration - Регистрация нового пользователя
- *     description: Создает нового пользователя с уникальным username и паролем, хэширует пароль, генерирует токены и отправляет их в ответ.
+ *     summary: Регистрация нового пользователя
+ *     description: Регистрирует нового пользователя с уникальным именем, хэширует пароль, генерирует токены доступа и обновления, а также устанавливает refresh-токен в cookie.
  *     operationId: registration
  *     requestBody:
  *       required: true
@@ -38,7 +38,7 @@ const userRouter = Router();
  *               - role
  *     responses:
  *       200:
- *         description: Токен авторизации
+ *         description: Пользователь успешно зарегистрирован, возвращает токен и информацию о пользователе.
  *         content:
  *           application/json:
  *             schema:
@@ -46,11 +46,36 @@ const userRouter = Router();
  *               properties:
  *                 token:
  *                   type: string
- *                   description: Токен для доступа к защищенным маршрутам.
+ *                   description: JWT-токен для доступа к защищенным маршрутам.
+ *                 user:
+ *                   type: object
+ *                   required:
+ *                     - id
+ *                     - username
+ *                     - role
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       description: Уникальный идентификатор пользователя.
+ *                     username:
+ *                       type: string
+ *                       description: Имя пользователя.
+ *                     email:
+ *                       type: string
+ *                       nullable: true
+ *                       description: Электронная почта пользователя.
+ *                     role:
+ *                       type: string
+ *                       description: Роль пользователя.
+ *                     avatar:
+ *                       type: string
+ *                       nullable: true
+ *                       description: Ссылка на аватар пользователя.
  *               required:
  *                 - token
+ *                 - user
  *       400:
- *         description: Некорректный запрос (например, если username или password пустые).
+ *         description: Некорректный запрос, например, если имя пользователя уже существует или поля пустые.
  *         content:
  *           application/json:
  *             schema:
@@ -60,6 +85,7 @@ const userRouter = Router();
  *                   type: string
  *                   description: Описание ошибки.
  */
+
 userRouter.post("/registration", userController.registration);
 /**
  * @swagger
@@ -67,8 +93,8 @@ userRouter.post("/registration", userController.registration);
  *   post:
  *     tags:
  *       - User
- *     summary: login - Аутентификация пользователя
- *     description: Аутентифицирует пользователя по логину и паролю, возвращает JWT-токен и устанавливает refresh-токен в куки.
+ *     summary: Аутентификация пользователя
+ *     description: Проверяет учетные данные пользователя, генерирует токены доступа и обновления, устанавливает refresh-токен в cookie и возвращает информацию о пользователе.
  *     operationId: login
  *     requestBody:
  *       required: true
@@ -79,16 +105,16 @@ userRouter.post("/registration", userController.registration);
  *             properties:
  *               username:
  *                 type: string
- *                 description: Имя пользователя
+ *                 description: Имя пользователя.
  *               password:
  *                 type: string
- *                 description: Пароль пользователя
+ *                 description: Пароль пользователя.
  *             required:
  *               - username
  *               - password
  *     responses:
  *       200:
- *         description: Успешная аутентификация
+ *         description: Успешная аутентификация, возвращает токен и данные пользователя.
  *         content:
  *           application/json:
  *             schema:
@@ -97,15 +123,35 @@ userRouter.post("/registration", userController.registration);
  *                 token:
  *                   type: string
  *                   description: JWT-токен для доступа к защищенным маршрутам.
+ *                 user:
+ *                   type: object
+ *                   required:
+ *                     - id
+ *                     - username
+ *                     - role
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       description: Уникальный идентификатор пользователя.
+ *                     username:
+ *                       type: string
+ *                       description: Имя пользователя.
+ *                     email:
+ *                       type: string
+ *                       nullable: true
+ *                       description: Электронная почта пользователя.
+ *                     role:
+ *                       type: string
+ *                       description: Роль пользователя.
+ *                     avatar:
+ *                       type: string
+ *                       nullable: true
+ *                       description: Ссылка на аватар пользователя.
  *               required:
  *                 - token
- *         headers:
- *           Set-Cookie:
- *             schema:
- *               type: string
- *               description: refresh-токен, установленный в куки.
+ *                 - user
  *       400:
- *         description: Неверные данные для входа
+ *         description: Некорректный запрос (например, если не переданы имя пользователя или пароль).
  *         content:
  *           application/json:
  *             schema:
@@ -113,9 +159,9 @@ userRouter.post("/registration", userController.registration);
  *               properties:
  *                 message:
  *                   type: string
- *                   description: Описание ошибки (например, "Пользователь с таким именем не найден" или "Указан неверный пароль").
+ *                   description: Описание ошибки.
  *       500:
- *         description: Внутренняя ошибка сервера
+ *         description: Ошибка сервера (например, неверный пароль или пользователь не найден).
  *         content:
  *           application/json:
  *             schema:
@@ -123,8 +169,9 @@ userRouter.post("/registration", userController.registration);
  *               properties:
  *                 message:
  *                   type: string
- *                   description: Описание ошибки (например, "Ошибка сервера").
+ *                   description: Описание ошибки.
  */
+
 userRouter.post("/login", userController.login);
 /**
  * @swagger
@@ -247,8 +294,6 @@ userRouter.get("/checkAuth", authMiddleware, userController.checkAuth);
  *                       - id
  *                       - username
  *                       - role
- *                       - email
- *                       - avatar
  *                     properties:
  *                       id:
  *                         type: string
