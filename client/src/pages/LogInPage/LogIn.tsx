@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { Input, Space, Typography, Button } from "antd";
 import { signIn } from "~features/Auth/model/authSlice";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { LogIn, Register } from "~features/Auth/ui";
+import { LogIn, Register } from "~features/auth/ui";
 import "./styles.scss";
-import { useAuth } from "~features/Auth/model/selector";
+import { useAuth } from "~features/auth/model/selector";
 
 const { Title, Text } = Typography;
 

@@ -1,10 +1,12 @@
 import { Menu, Layout } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useTypedDispatch } from "~app/store/typedHooks";
-
-import { generateSidebarMenuItems } from "./generateSidebarMenuItems";
+import {
+  getSidebarItemsConfig,
+  SidebarItemsProps,
+} from "~widgets/AuthorisedUi/Sidebar/config/sidebarItemsConfig";
 import "./styles.scss";
-import { getSidebarItemsConfig } from "~widgets/AuthorisedUi/Sidebar/config/sidebarItemsConfig";
+import { MenuProps } from "antd/lib";
 
 const { Sider } = Layout;
 interface Props {
@@ -15,7 +17,20 @@ export const Sidebar: React.FC<Props> = ({ collapsed }) => {
   const dispatch = useTypedDispatch();
   const navigate = useNavigate();
 
+  const generateSidebarMenuItems = (
+    items: SidebarItemsProps[]
+  ): MenuProps["items"] => {
+    return items.map(({ key, label, icon: Icon, to, children, onClick }) => ({
+      key,
+      label,
+      icon: Icon ? <Icon /> : undefined,
+      onClick: onClick ? onClick : to ? () => navigate(to) : undefined,
+      children: children ? generateSidebarMenuItems(children) : undefined,
+    }));
+  };
+
   const sidebarItemsConfig = getSidebarItemsConfig(dispatch);
+  const menuItems = generateSidebarMenuItems(sidebarItemsConfig);
 
   return (
     <Sider trigger={null} collapsible collapsed={collapsed} className="sidebar">
@@ -25,7 +40,7 @@ export const Sidebar: React.FC<Props> = ({ collapsed }) => {
         mode="inline"
         defaultSelectedKeys={["1"]}
         className="sidebar__menu"
-        items={generateSidebarMenuItems(sidebarItemsConfig, navigate)}
+        items={menuItems}
       />
     </Sider>
   );

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
 import { useTypedDispatch } from "~app/store/typedHooks";
 import { setUserData, signIn } from "~features/Auth/model/authSlice";
-import { useLoginMutation } from "~features/Auth/api/authEndpoints";
+import { useLoginMutation } from "~features/auth/api/authEndpoints";
 
 interface Props {
   username: string;
