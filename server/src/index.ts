@@ -12,16 +12,15 @@ import { specs } from "./doc/swagger";
 const PORT = process.env.PORT || 7000;
 const app = express();
 
-app.get("/api-docs/swagger.json", (req, res) => {
-  res.setHeader("Content-Type", "application/json");
-  res.send(specs);
-});
-
 app.use(cookieParser());
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
 app.use("/api", router);
 app.use(errorHandler);
+app.get("/api-docs/swagger.json", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(specs);
+});
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(specs));
 app.use(
   "/redoc",
