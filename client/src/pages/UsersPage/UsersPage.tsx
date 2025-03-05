@@ -6,7 +6,7 @@ import {
   useDeleteUserMutation,
   useGetUsersQuery,
   useUpdateUserMutation,
-} from "~shared/api/userEndpoints";
+} from "~pages/UsersPage/api/userEndpoints";
 
 export const UsersPage = () => {
   const { data, isLoading, error } = useGetUsersQuery();

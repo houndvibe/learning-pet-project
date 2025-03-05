@@ -1,6 +1,6 @@
 import { Select, TableColumnsType, Typography } from "antd";
 import { DeleteOutlined, UserOutlined } from "@ant-design/icons";
-import { UserRoles } from "~shared/api/userEndpoints";
+import { UserRoles } from "~pages/UsersPage/api/userEndpoints";
 
 export interface DataType {
   id: string;
