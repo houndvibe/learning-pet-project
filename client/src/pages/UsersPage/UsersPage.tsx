@@ -7,11 +7,14 @@ import {
   useGetUsersQuery,
   useUpdateUserMutation,
 } from "~pages/UsersPage/api/userEndpoints";
+import { useNavigate } from "react-router-dom";
 
 export const UsersPage = () => {
   const { data, isLoading, error } = useGetUsersQuery();
 
   const { userData } = useAuth();
+
+  const navigate = useNavigate();
 
   const [delteUser] = useDeleteUserMutation();
   const [updateUser] = useUpdateUserMutation();
@@ -64,6 +67,14 @@ export const UsersPage = () => {
     <Alert message="Ошибка загрузки пользователей" type="error" />
   ) : (
     <Table
+      onRow={(record) => {
+        return {
+          onClick: () => {
+            console.log(record.id);
+            navigate(`/settings/users/${record.id}`);
+          },
+        };
+      }}
       columns={getUserListColumns(
         userData.id,
         handleDeleteUser,

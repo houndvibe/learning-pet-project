@@ -5,6 +5,7 @@ import { AuthorisedRoutes } from "../providers/AuthorisedRoutes";
 import { ROUTES } from "~app/routes/routes";
 import { UsersPage } from "~pages/UsersPage/UsersPage";
 import { LoginPage } from "~pages/LogInPage/LogIn";
+import { UserPage } from "~pages/UserPage/UserPage";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
       {
         path: ROUTES.SETTINGS_USERS,
         element: <UsersPage />,
+        errorElement: <>ErrorPage</>,
+      },
+      {
+        path: ROUTES.SETTINGS_USER,
+        element: <UserPage />,
         errorElement: <>ErrorPage</>,
       },
       {
