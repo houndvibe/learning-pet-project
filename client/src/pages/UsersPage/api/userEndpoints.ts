@@ -2,25 +2,39 @@ import { apiSlice as api } from "../../../shared/api/apiSlice";
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getUsers: build.query<GetUsersApiResponse, GetUsersApiArg>({
-      query: () => ({ url: `user/getUsers` }),
+    getUsers: build.query<GetUsersApiResponse, void>({
+      query: () => ({ url: "user/getUsers" }),
       providesTags: ["Users"],
     }),
+
+    getUser: build.query<GetUserApiResponse, GetUserApiArg>({
+      query: ({ id }) => ({
+        url: `user/getUser`,
+        method: "GET",
+        params: { id },
+      }),
+      providesTags: (result) => [{ type: "User", id: result?.data.id }],
+    }),
+
     deleteUser: build.mutation<DeleteUserApiResponse, DeleteUserApiArg>({
-      query: (queryArg) => ({
-        url: `user/deleteUser`,
+      query: ({ body }) => ({
+        url: "user/deleteUser",
         method: "DELETE",
-        body: queryArg.body,
+        body,
       }),
       invalidatesTags: ["Users"],
     }),
+
     updateUser: build.mutation<UpdateUserApiResponse, UpdateUserApiArg>({
-      query: (queryArg) => ({
-        url: `user/updateUser`,
+      query: ({ body }) => ({
+        url: "user/updateUser",
         method: "PUT",
-        body: queryArg.body,
+        body,
       }),
-      invalidatesTags: ["Users"],
+      invalidatesTags: (result) => [
+        { type: "User", id: result?.data.id },
+        "Users",
+      ],
     }),
   }),
   overrideExisting: false,
@@ -39,22 +53,29 @@ export type GetUsersApiResponse = {
     avatar?: string;
   }[];
 };
+
 export type GetUsersApiArg = void;
+
 export type DeleteUserApiResponse = {
   message?: string;
 };
+
 export type DeleteUserApiArg = {
   body: {
     id: string;
   };
 };
+
 export type UpdateUserApiResponse = {
-  id: string;
-  username?: string;
-  role?: UserRoles;
-  email?: string;
-  avatar?: string;
+  data: {
+    id: string;
+    username?: string;
+    role?: UserRoles;
+    email?: string;
+    avatar?: string;
+  };
 };
+
 export type UpdateUserApiArg = {
   body: {
     id: string;
@@ -64,7 +85,24 @@ export type UpdateUserApiArg = {
     avatar?: string;
   };
 };
+
+export type GetUserApiResponse = {
+  data: {
+    id: string;
+    username?: string;
+    role?: UserRoles;
+    email?: string;
+    avatar?: string;
+  };
+};
+
+export type GetUserApiArg = {
+  id: string;
+};
+
 export const {
+  useGetUserQuery,
+  useLazyGetUserQuery,
   useGetUsersQuery,
   useLazyGetUsersQuery,
   useDeleteUserMutation,

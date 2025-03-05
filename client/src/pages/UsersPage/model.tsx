@@ -24,6 +24,7 @@ export const getUserListColumns = (
       width: 300,
       render: (value, record) => (
         <Typography.Text
+          onClick={(e) => e.stopPropagation()}
           editable={{
             onChange: (value) =>
               handleUpdateUser({ ...record, username: value }),
@@ -41,6 +42,7 @@ export const getUserListColumns = (
       width: 300,
       render: (value, record) => (
         <Select
+          onClick={(e) => e.stopPropagation()}
           style={{ width: "100px" }}
           value={value}
           onChange={(value) => handleUpdateUser({ ...record, role: value })}
@@ -61,6 +63,7 @@ export const getUserListColumns = (
       key: "email",
       render: (value, record) => (
         <Typography.Text
+          onClick={(e) => e.stopPropagation()}
           editable={{
             onChange: (value) => handleUpdateUser({ ...record, email: value }),
             triggerType: ["icon", "text"],
@@ -85,7 +88,10 @@ export const getUserListColumns = (
         return record.id !== id ? (
           <DeleteOutlined
             style={{ color: "red" }}
-            onClick={() => onDelete(record.id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete(record.id);
+            }}
           />
         ) : (
           <UserOutlined />

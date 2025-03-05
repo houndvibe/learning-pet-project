@@ -1,4 +1,4 @@
-import { Alert, notification, Table } from "antd";
+import { Alert, Table } from "antd";
 import { DataType, getUserListColumns } from "./model";
 import { useMemo } from "react";
 import { useAuth } from "~features/auth/model/selector";
@@ -8,6 +8,7 @@ import {
   useUpdateUserMutation,
 } from "~pages/UsersPage/api/userEndpoints";
 import { useNavigate } from "react-router-dom";
+import HandleResponse from "~shared/lib/api/handleResponse";
 
 export const UsersPage = () => {
   const { data, isLoading, error } = useGetUsersQuery();
@@ -26,10 +27,9 @@ export const UsersPage = () => {
           id,
         },
       }).unwrap();
-      notification.success({ message: "Пользователь удален" });
+      HandleResponse.success("Пользователь удален");
     } catch (error) {
-      console.error(error);
-      notification.error({ message: "Не удалось удалить пользователя" });
+      HandleResponse.error(error, "Не удалось удалить пользователя");
     }
   };
 
@@ -50,12 +50,12 @@ export const UsersPage = () => {
           avatar,
         },
       }).unwrap();
-      notification.success({ message: "Инфо о пользователе обновлено" });
+      HandleResponse.success("Инфо о пользователе обновлено");
     } catch (error) {
-      console.error(error);
-      notification.error({
-        message: "Не удалось обновить информацию о пользователе",
-      });
+      HandleResponse.error(
+        error,
+        "Не удалось обновить информацию о пользователе"
+      );
     }
   };
 

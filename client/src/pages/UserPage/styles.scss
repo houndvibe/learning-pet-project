@@ -1,0 +1,25 @@
+.profile-container {
+  max-width: 400px;
+  text-align: left; // Выровнять все по левому краю
+
+  .avatar-upload {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .avatar {
+    cursor: pointer;
+  }
+
+  .upload-button {
+    margin-top: 10px;
+  }
+
+  .user-form {
+    .ant-form-item {
+      margin-bottom: 15px;
+    }
+  }
+}
