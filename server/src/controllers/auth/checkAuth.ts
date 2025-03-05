@@ -1,14 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import { User } from "../../database/database";
 import ApiError from "../../error/ApiError";
-import { UserController } from "./UserController";
+import { AuthController } from "./AuthController";
 
 export const checkAuth = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const token = UserController.generateJwt(req.user);
+  const token = AuthController.generateJwt(req.user);
 
   const user = await User.findOne({ where: { id: req.user.id } });
 

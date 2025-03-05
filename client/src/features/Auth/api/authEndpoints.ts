@@ -4,7 +4,7 @@ const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     registration: build.mutation<RegistrationApiResponse, RegistrationApiArg>({
       query: (queryArg) => ({
-        url: `/user/registration`,
+        url: `/auth/registration`,
         method: "POST",
         body: queryArg.body,
       }),
@@ -12,20 +12,20 @@ const injectedRtkApi = api.injectEndpoints({
     }),
     login: build.mutation<LoginApiResponse, LoginApiArg>({
       query: (queryArg) => ({
-        url: `/user/login`,
+        url: `/auth/login`,
         method: "POST",
         body: queryArg.body,
       }),
     }),
     refresh: build.mutation<RefreshApiResponse, RefreshApiArg>({
       query: (queryArg) => ({
-        url: `user/refresh`,
+        url: `auth/refresh`,
         method: "POST",
         body: queryArg.body,
       }),
     }),
     checkAuth: build.query<CheckAuthApiResponse, CheckAuthApiArg>({
-      query: () => ({ url: `user/checkAuth` }),
+      query: () => ({ url: `auth/checkAuth` }),
     }),
   }),
   overrideExisting: false,

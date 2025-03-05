@@ -45,7 +45,7 @@ export type DeleteUserApiResponse = {
 };
 export type DeleteUserApiArg = {
   body: {
-    userId: string;
+    id: string;
   };
 };
 export type UpdateUserApiResponse = {

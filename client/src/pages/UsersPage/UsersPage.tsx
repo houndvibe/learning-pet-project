@@ -16,11 +16,11 @@ export const UsersPage = () => {
   const [delteUser] = useDeleteUserMutation();
   const [updateUser] = useUpdateUserMutation();
 
-  const handleDeleteUser = async (userId: string) => {
+  const handleDeleteUser = async (id: string) => {
     try {
       await delteUser({
         body: {
-          userId,
+          id,
         },
       }).unwrap();
       notification.success({ message: "Пользователь удален" });

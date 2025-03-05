@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcrypt";
 import { User } from "../../database/database";
 import ApiError from "../../error/ApiError";
-import { UserController } from "./UserController";
+import { AuthController } from "./AuthController";
 
 export const login = async (
   req: Request,
@@ -23,8 +23,8 @@ export const login = async (
     return next(ApiError.internal("Указан неверный пароль"));
   }
 
-  const token: string = UserController.generateJwt(user);
-  const refreshToken: string = UserController.generateRefreshJwt(user);
+  const token: string = AuthController.generateJwt(user);
+  const refreshToken: string = AuthController.generateRefreshJwt(user);
 
   res.cookie("refreshToken", refreshToken, { httpOnly: true });
 

@@ -1,7 +1,7 @@
 import ApiError from "../../error/ApiError";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { UserController } from "./UserController";
+import { AuthController } from "./AuthController";
 
 export const refresh = async (
   req: Request,
@@ -20,7 +20,7 @@ export const refresh = async (
     (err: any, user: any) => {
       if (err)
         return next(ApiError.forbidden("Недействительный refresh-токен"));
-      const token = UserController.generateJwt(user);
+      const token = AuthController.generateJwt(user);
       res.json({ token });
     }
   );

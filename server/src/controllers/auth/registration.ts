@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcrypt";
 import { User } from "../../database/database";
-import { UserController } from "./UserController";
 import ApiError from "../../error/ApiError";
+import { AuthController } from "./AuthController";
 
 export const registration = async (
   req: Request,
@@ -29,8 +29,8 @@ export const registration = async (
     password: hashedPassword,
   });
 
-  const token: string = UserController.generateJwt(user);
-  const refreshToken: string = UserController.generateRefreshJwt(user);
+  const token: string = AuthController.generateJwt(user);
+  const refreshToken: string = AuthController.generateRefreshJwt(user);
 
   res.cookie("refreshToken", refreshToken, { httpOnly: true });
   res.json({
