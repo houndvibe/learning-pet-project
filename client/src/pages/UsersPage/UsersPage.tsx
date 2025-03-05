@@ -1,7 +1,7 @@
 import { Alert, notification, Table } from "antd";
 import { DataType, getUserListColumns } from "./model";
 import { useMemo } from "react";
-import { useAuth } from "~features/Auth/model/selector";
+import { useAuth } from "~features/auth/model/selector";
 import {
   useDeleteUserMutation,
   useGetUsersQuery,
@@ -30,15 +30,21 @@ export const UsersPage = () => {
     }
   };
 
-  const updateUserInfo = async (data: DataType) => {
+  const updateUserInfo = async ({
+    id,
+    username,
+    role,
+    email,
+    avatar,
+  }: DataType) => {
     try {
       await updateUser({
         body: {
-          id: data.id,
-          username: data.username,
-          role: data.role,
-          email: data.email,
-          avatar: data.avatar,
+          id,
+          username,
+          role,
+          email,
+          avatar,
         },
       }).unwrap();
       notification.success({ message: "Инфо о пользователе обновлено" });

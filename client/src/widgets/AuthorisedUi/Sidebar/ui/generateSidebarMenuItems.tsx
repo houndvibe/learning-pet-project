@@ -1,5 +1,5 @@
 import { MenuProps } from "antd";
-import { SidebarItemsProps } from "~shared/config/sidebarItemsConfig";
+import { SidebarItemsProps } from "~widgets/AuthorisedUi/Sidebar/config/sidebarItemsConfig";
 
 export const generateSidebarMenuItems = (
   items: SidebarItemsProps[],

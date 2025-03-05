@@ -4,7 +4,7 @@ import { useTypedDispatch } from "~app/store/typedHooks";
 
 import { generateSidebarMenuItems } from "./generateSidebarMenuItems";
 import "./styles.scss";
-import { getSidebarItemsConfig } from "~shared/config/sidebarItemsConfig";
+import { getSidebarItemsConfig } from "~widgets/AuthorisedUi/Sidebar/config/sidebarItemsConfig";
 
 const { Sider } = Layout;
 interface Props {

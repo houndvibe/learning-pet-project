@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import { HomePage } from "~pages/HomePage/HomePage";
 import { AuthorisedRoutes } from "../providers/AuthorisedRoutes";
-import { ROUTES } from "~shared/config/routes";
+import { ROUTES } from "~app/routes/routes";
 import { UsersPage } from "~pages/UsersPage/UsersPage";
 import { LoginPage } from "~pages/LogInPage/LogIn";
 
