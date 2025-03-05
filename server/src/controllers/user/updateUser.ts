@@ -7,7 +7,7 @@ export const updateUser = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { username, role, id, email }: User = req.body;
+  const { username, role, id, email, avatar }: User = req.body;
 
   try {
     const user = await User.findOne({ where: { id } });
@@ -24,10 +24,10 @@ export const updateUser = async (
       }
     }
 
-    await User.update({ username, role, email }, { where: { id } });
+    await User.update({ username, role, email, avatar }, { where: { id } });
 
     const updatedUser = await User.findOne({ where: { id } });
-    res.json(updatedUser);
+    res.json({ data: updatedUser });
   } catch (error) {
     next(ApiError.internal("Ошибка при обновлении пользователя"));
   }
