@@ -6,14 +6,13 @@ import {
   UserRoles,
   useUpdateUserMutation,
 } from "~pages/UsersPage/api/userEndpoints";
-import { Form } from "antd";
-
 import UserForm from "./UserForm";
 import { useAuth } from "~features/auth/model/selector";
 import AvatarUpload from "./AvatarUpload";
-import "./styles.scss";
 import HandleResponse from "~shared/lib/api/handleResponse";
 import { showConfirmModal } from "~features/showConfirmModal";
+import { Form } from "antd";
+import "./styles.scss";
 
 type UserInfo = {
   username: string;
@@ -69,10 +68,7 @@ export const UserPage = () => {
         "/settings/users"
       );
     } catch (error) {
-      HandleResponse.error(
-        error,
-        "Не удалось обновить информацию о пользователе"
-      );
+      HandleResponse.error(error);
     }
   };
 
@@ -94,7 +90,7 @@ export const UserPage = () => {
             "/settings/users"
           );
         } catch (error) {
-          HandleResponse.error(error, "Не удалось удалить пользователя");
+          HandleResponse.error(error);
         }
       },
     });

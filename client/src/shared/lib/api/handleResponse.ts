@@ -15,11 +15,13 @@ class HandleResponse {
     }
   }
 
-  static error(error: unknown, message: string) {
-    console.log(error);
-    notification.error({
-      message: message,
-    });
+  static error(error: unknown, message?: string) {
+    console.error(error);
+    if (message) {
+      notification.error({
+        message: message,
+      });
+    }
   }
 }
 

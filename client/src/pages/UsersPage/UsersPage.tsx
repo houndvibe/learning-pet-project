@@ -37,7 +37,7 @@ export const UsersPage = () => {
             "/settings/users"
           );
         } catch (error) {
-          HandleResponse.error(error, "Не удалось удалить пользователя");
+          HandleResponse.error(error);
         }
       },
     });

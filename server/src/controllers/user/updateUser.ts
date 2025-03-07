@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { User } from "../../database/database";
 import ApiError from "../../error/ApiError";
+import { Op } from "sequelize";
 
 export const updateUser = async (
   req: Request,
@@ -15,6 +16,20 @@ export const updateUser = async (
     });
     if (!user) {
       return next(ApiError.badRequest("Пользователь не найден"));
+    }
+
+    const sameEmailUser = await User.findOne({
+      where: {
+        email,
+        id: {
+          [Op.ne]: id,
+        },
+      },
+    });
+    if (sameEmailUser) {
+      return next(
+        ApiError.badRequest("Пользователь c такой почтой уже существует")
+      );
     }
 
     if (username) {
