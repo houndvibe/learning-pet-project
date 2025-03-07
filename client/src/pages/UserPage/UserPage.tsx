@@ -59,6 +59,7 @@ export const UserPage = () => {
       await updateUser({
         body: {
           id: userId!,
+          avatar,
           ...values,
         },
       }).unwrap();
