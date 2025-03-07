@@ -15,7 +15,10 @@ export const registration = async (
     return next(ApiError.badRequest("Некорректный username или пароль"));
   }
 
-  const candidate = await User.findOne({ where: { username } });
+  const candidate = await User.findOne({
+    where: { username },
+    attributes: { exclude: ["password"] },
+  });
   if (candidate) {
     return next(
       ApiError.badRequest("Пользователь с таким username уже существует")

@@ -51,6 +51,8 @@ export type GetUsersApiResponse = {
     role: UserRoles;
     email?: string;
     avatar?: string;
+    age?: number;
+    bio?: string;
   }[];
 };
 
@@ -73,6 +75,8 @@ export type UpdateUserApiResponse = {
     role?: UserRoles;
     email?: string;
     avatar?: string;
+    age?: number;
+    bio?: string;
   };
 };
 
@@ -83,6 +87,8 @@ export type UpdateUserApiArg = {
     role?: UserRoles;
     email?: string;
     avatar?: string;
+    age?: number;
+    bio?: string;
   };
 };
 
@@ -93,6 +99,8 @@ export type GetUserApiResponse = {
     role?: UserRoles;
     email?: string;
     avatar?: string;
+    age?: number;
+    bio?: string;
   };
 };
 

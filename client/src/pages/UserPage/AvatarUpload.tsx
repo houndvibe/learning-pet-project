@@ -1,4 +1,3 @@
-// AvatarUpload.tsx
 import React from "react";
 import { Upload, Avatar } from "antd";
 import { UploadProps } from "antd/es/upload";

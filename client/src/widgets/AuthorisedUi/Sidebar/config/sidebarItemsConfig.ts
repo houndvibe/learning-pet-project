@@ -71,9 +71,9 @@ export const getSidebarItemsConfig = (
         onClick: () => {
           showConfirmModal({
             title: "Вы действительно хотите выйти?",
-            onOk: () => dispatch(signOut()),
             okText: "Да",
             cancelText: "Нет",
+            onOk: () => dispatch(signOut()),
           });
         },
       },

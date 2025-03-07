@@ -13,12 +13,13 @@ import { useAuth } from "~features/auth/model/selector";
 import AvatarUpload from "./AvatarUpload";
 import "./styles.scss";
 import HandleResponse from "~shared/lib/api/handleResponse";
+import { showConfirmModal } from "~features/showConfirmModal";
 
 type UserInfo = {
   username: string;
   role: UserRoles;
   email?: string;
-  age?: string;
+  age?: number;
   bio?: string;
 };
 
@@ -44,6 +45,8 @@ export const UserPage = () => {
         username: userData.username,
         email: userData.email || "",
         role: userData.role || "USER",
+        age: userData.age,
+        bio: userData.bio,
       });
 
       if (userData.avatar) {
@@ -52,18 +55,19 @@ export const UserPage = () => {
     }
   }, [data, form]);
 
-  const handleSubmit = async ({ username, role, email }: UserInfo) => {
+  const handleSubmit = async (values: UserInfo) => {
     try {
       await updateUser({
         body: {
           id: userId!,
-          username,
-          role,
-          email,
-          avatar,
+          ...values,
         },
       }).unwrap();
-      HandleResponse.success("Инфо о пользователе обновлено", navigate, "-1");
+      HandleResponse.success(
+        "Информация о пользователе обновлена",
+        navigate,
+        "/settings/users"
+      );
     } catch (error) {
       HandleResponse.error(
         error,
@@ -73,16 +77,27 @@ export const UserPage = () => {
   };
 
   const handleDeleteUser = async () => {
-    try {
-      await deleteUser({
-        body: {
-          id: userId!,
-        },
-      }).unwrap();
-      HandleResponse.success("Юзер удален", navigate, "-1");
-    } catch (error) {
-      HandleResponse.error(error, "Не удалось удалить юзера");
-    }
+    showConfirmModal({
+      title: `Вы действительно хотите удалить пользователя ${data?.data.username} ?`,
+      okText: "Да",
+      cancelText: "Нет",
+      onOk: async () => {
+        try {
+          await deleteUser({
+            body: {
+              id: userId!,
+            },
+          }).unwrap();
+          HandleResponse.success(
+            "Пользователь удален",
+            navigate,
+            "/settings/users"
+          );
+        } catch (error) {
+          HandleResponse.error(error, "Не удалось удалить пользователя");
+        }
+      },
+    });
   };
 
   return (

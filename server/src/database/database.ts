@@ -18,6 +18,8 @@ export class User extends Model {
   declare email: string;
   declare avatar: string;
   declare role: CreationOptional<"USER" | "ADMIN">;
+  declare age: number;
+  declare bio: string;
 }
 
 User.init(
@@ -32,6 +34,8 @@ User.init(
     email: { type: DataTypes.STRING, unique: true, allowNull: true },
     avatar: { type: DataTypes.STRING, allowNull: true },
     role: { type: DataTypes.STRING, defaultValue: "USER" },
+    age: { type: DataTypes.INTEGER, allowNull: true },
+    bio: { type: DataTypes.STRING, allowNull: true },
   },
   {
     sequelize,

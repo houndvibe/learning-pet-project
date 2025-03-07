@@ -1,4 +1,4 @@
-import { Select, TableColumnsType, Typography } from "antd";
+import { TableColumnsType } from "antd";
 import { DeleteOutlined, UserOutlined } from "@ant-design/icons";
 import { UserRoles } from "~pages/UsersPage/api/userEndpoints";
 
@@ -9,12 +9,13 @@ export interface DataType {
   role: UserRoles;
   avatar?: string | undefined;
   email?: string | undefined;
+  age?: number | undefined;
+  bio?: string | undefined;
 }
 
 export const getUserListColumns = (
   id: string,
-  onDelete: (userId: string) => void,
-  handleUpdateUser: (data: DataType) => void
+  onDelete: (userId: string) => void
 ): TableColumnsType<DataType> => {
   return [
     {
@@ -22,35 +23,12 @@ export const getUserListColumns = (
       dataIndex: "username",
       key: "username",
       width: 300,
-      render: (value, record) => (
-        <Typography.Text
-          onClick={(e) => e.stopPropagation()}
-          editable={{
-            onChange: (value) =>
-              handleUpdateUser({ ...record, username: value }),
-            triggerType: ["icon", "text"],
-          }}
-        >
-          {value}
-        </Typography.Text>
-      ),
     },
     {
       title: "Role",
       dataIndex: "role",
       key: "role",
       width: 300,
-      render: (value, record) => (
-        <Select
-          onClick={(e) => e.stopPropagation()}
-          style={{ width: "100px" }}
-          value={value}
-          onChange={(value) => handleUpdateUser({ ...record, role: value })}
-        >
-          <Select.Option value={"ADMIN"}>{"ADMIN"}</Select.Option>
-          <Select.Option value={"USER"}>{"USER"}</Select.Option>
-        </Select>
-      ),
     },
     {
       title: "ID",
@@ -61,17 +39,7 @@ export const getUserListColumns = (
       title: "E-mail",
       dataIndex: "email",
       key: "email",
-      render: (value, record) => (
-        <Typography.Text
-          onClick={(e) => e.stopPropagation()}
-          editable={{
-            onChange: (value) => handleUpdateUser({ ...record, email: value }),
-            triggerType: ["icon", "text"],
-          }}
-        >
-          {value ? value : "-"}
-        </Typography.Text>
-      ),
+      render: (value) => (value ? value : "-"),
     },
     {
       title: "Avatar",

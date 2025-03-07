@@ -9,7 +9,10 @@ export const getUser = async (
 ): Promise<void> => {
   const { id } = req.query;
 
-  const user = await User.findOne({ where: { id } });
+  const user = await User.findOne({
+    where: { id },
+    attributes: { exclude: ["password"] }, // исключаем поле password
+  });
 
   if (!id || typeof id !== "string") {
     return next(ApiError.badRequest("ID пользователя обязателен"));
@@ -25,6 +28,8 @@ export const getUser = async (
     id: user.id,
     email: user.email,
     avatar: user.avatar,
+    age: user.age,
+    bio: user.bio,
   };
 
   res.json({ data });

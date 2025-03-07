@@ -1,4 +1,4 @@
-import { notification } from "antd";
+import { notification, message as antdMessage } from "antd";
 
 class HandleResponse {
   static success(
@@ -6,8 +6,8 @@ class HandleResponse {
     navigate?: (to: string) => void,
     to?: string
   ) {
-    notification.success({
-      message: message,
+    antdMessage.success({
+      content: message,
     });
 
     if (navigate && to) {

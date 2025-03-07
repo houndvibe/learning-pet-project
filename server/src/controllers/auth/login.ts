@@ -11,7 +11,10 @@ export const login = async (
 ): Promise<void> => {
   const { username, password }: User = req.body;
 
-  const user = await User.findOne({ where: { username } });
+  const user = await User.findOne({
+    where: { username },
+    attributes: { exclude: ["password"] },
+  });
 
   if (!user) {
     return next(ApiError.internal("Пользователь с таким именем не найден"));

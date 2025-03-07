@@ -1,6 +1,6 @@
 // UserForm.tsx
 import React from "react";
-import { Form, Input, Button, Select } from "antd";
+import { Form, Input, Button, Select, Flex } from "antd";
 import { UserRoles } from "~features/auth/api/authEndpoints";
 import "./styles.scss";
 
@@ -8,7 +8,7 @@ interface UserInfo {
   username: string;
   role: UserRoles;
   email?: string;
-  age?: string;
+  age?: number;
   bio?: string;
 }
 
@@ -61,16 +61,16 @@ const UserForm: React.FC<UserFormProps> = ({
         <Input.TextArea placeholder="Расскажите о себе" rows={4} />
       </Form.Item>
 
-      <div className="form-actions">
-        <Button type="primary" htmlType="submit">
-          Сохранить
-        </Button>
+      <Flex className="form-actions" justify="flex-end" gap={20}>
         {id !== userId && (
           <Button danger onClick={handleDeleteUser}>
             Удалить
           </Button>
         )}
-      </div>
+        <Button type="primary" htmlType="submit">
+          Сохранить
+        </Button>
+      </Flex>
     </Form>
   );
 };

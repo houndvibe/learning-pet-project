@@ -1,62 +1,46 @@
 import { Alert, Table } from "antd";
-import { DataType, getUserListColumns } from "./model";
+import { getUserListColumns } from "./model";
 import { useMemo } from "react";
 import { useAuth } from "~features/auth/model/selector";
 import {
   useDeleteUserMutation,
   useGetUsersQuery,
-  useUpdateUserMutation,
 } from "~pages/UsersPage/api/userEndpoints";
 import { useNavigate } from "react-router-dom";
 import HandleResponse from "~shared/lib/api/handleResponse";
+import { showConfirmModal } from "~features/showConfirmModal";
 
 export const UsersPage = () => {
   const { data, isLoading, error } = useGetUsersQuery();
-
   const { userData } = useAuth();
 
   const navigate = useNavigate();
-
-  const [delteUser] = useDeleteUserMutation();
-  const [updateUser] = useUpdateUserMutation();
+  const [deleteUser] = useDeleteUserMutation();
 
   const handleDeleteUser = async (id: string) => {
-    try {
-      await delteUser({
-        body: {
-          id,
-        },
-      }).unwrap();
-      HandleResponse.success("Пользователь удален");
-    } catch (error) {
-      HandleResponse.error(error, "Не удалось удалить пользователя");
-    }
-  };
+    const currentUserName = data?.data.find((item) => item.id === id)?.username;
 
-  const updateUserInfo = async ({
-    id,
-    username,
-    role,
-    email,
-    avatar,
-  }: DataType) => {
-    try {
-      await updateUser({
-        body: {
-          id,
-          username,
-          role,
-          email,
-          avatar,
-        },
-      }).unwrap();
-      HandleResponse.success("Инфо о пользователе обновлено");
-    } catch (error) {
-      HandleResponse.error(
-        error,
-        "Не удалось обновить информацию о пользователе"
-      );
-    }
+    showConfirmModal({
+      title: `Вы действительно хотите удалить пользователя ${currentUserName} ?`,
+      okText: "Да",
+      cancelText: "Нет",
+      onOk: async () => {
+        try {
+          await deleteUser({
+            body: {
+              id,
+            },
+          }).unwrap();
+          HandleResponse.success(
+            "Пользователь удален",
+            navigate,
+            "/settings/users"
+          );
+        } catch (error) {
+          HandleResponse.error(error, "Не удалось удалить пользователя");
+        }
+      },
+    });
   };
 
   const dataSource = useMemo(() => {
@@ -75,11 +59,7 @@ export const UsersPage = () => {
           },
         };
       }}
-      columns={getUserListColumns(
-        userData.id,
-        handleDeleteUser,
-        updateUserInfo
-      )}
+      columns={getUserListColumns(userData.id, handleDeleteUser)}
       dataSource={dataSource}
       loading={isLoading}
     />
