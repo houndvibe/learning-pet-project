@@ -13,7 +13,6 @@ export const login = async (
 
   const user = await User.findOne({
     where: { username },
-    attributes: { exclude: ["password"] },
   });
 
   if (!user) {
