@@ -1,8 +1,9 @@
-// UserForm.tsx
 import React from "react";
 import { Form, Input, Button, Select, Flex } from "antd";
 import { UserRoles } from "~features/auth/api/authEndpoints";
 import "./styles.scss";
+import { FormInstance } from "antd/lib";
+import { useAuth } from "~features/auth/model/selector";
 
 interface UserInfo {
   username: string;
@@ -13,10 +14,9 @@ interface UserInfo {
 }
 
 interface UserFormProps {
-  form: any;
+  form: FormInstance<UserInfo>;
   handleSubmit: (values: UserInfo) => void;
   handleDeleteUser: () => void;
-  id: string;
   userId: string;
 }
 
@@ -24,9 +24,11 @@ const UserForm: React.FC<UserFormProps> = ({
   form,
   handleSubmit,
   handleDeleteUser,
-  id,
   userId,
 }) => {
+  const { userData } = useAuth();
+  const { id: authorisedUserId } = userData;
+
   return (
     <Form
       form={form}
@@ -62,13 +64,13 @@ const UserForm: React.FC<UserFormProps> = ({
       </Form.Item>
 
       <Flex className="form-actions" justify="flex-end" gap={20}>
-        {id !== userId && (
+        {authorisedUserId !== userId && (
           <Button danger onClick={handleDeleteUser}>
-            Удалить
+            {"Удалить"}
           </Button>
         )}
         <Button type="primary" htmlType="submit">
-          Сохранить
+          {"Сохранить"}
         </Button>
       </Flex>
     </Form>

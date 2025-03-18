@@ -7,13 +7,12 @@ import {
   useUpdateUserMutation,
 } from "~pages/UsersPage/api/userEndpoints";
 import UserForm from "./UserForm";
-import { useAuth } from "~features/auth/model/selector";
 import AvatarUpload from "./AvatarUpload";
 import HandleResponse from "~shared/lib/api/handleResponse";
 import { showConfirmModal } from "~features/showConfirmModal";
 import { Form } from "antd";
-import "./styles.scss";
 import { createFilePath } from "~shared/lib/file/creeateFilePath";
+import "./styles.scss";
 
 type UserInfo = {
   username: string;
@@ -26,37 +25,27 @@ type UserInfo = {
 export const UserPage = () => {
   const { userId } = useParams<{ userId?: string }>();
   const navigate = useNavigate();
-
   const [form] = Form.useForm();
+
   const [avatar, setAvatar] = useState<string>("");
 
   const { data } = useGetUserQuery({ id: userId! }, { skip: !userId });
   const [updateUser] = useUpdateUserMutation();
   const [deleteUser] = useDeleteUserMutation();
 
-  const {
-    userData: { id },
-  } = useAuth();
-
   useEffect(() => {
     if (data) {
       const userData = data.data;
-      const { avatar, username, email, role, age, bio } = userData;
+      const { avatar } = userData;
 
-      form.setFieldsValue({
-        username,
-        email: email || "",
-        role: role || "USER",
-        age,
-        bio,
-      });
+      form.setFieldsValue({ ...userData });
 
       if (avatar) {
         const avatarUrl = createFilePath(avatar);
         setAvatar(avatarUrl);
       }
     }
-  }, [data, form]);
+  }, [data]);
 
   const handleSubmit = async (values: UserInfo) => {
     try {
@@ -108,7 +97,6 @@ export const UserPage = () => {
         form={form}
         handleSubmit={handleSubmit}
         handleDeleteUser={handleDeleteUser}
-        id={id}
         userId={userId!}
       />
     </div>
