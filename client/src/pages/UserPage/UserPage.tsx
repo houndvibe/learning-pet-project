@@ -13,6 +13,7 @@ import HandleResponse from "~shared/lib/api/handleResponse";
 import { showConfirmModal } from "~features/showConfirmModal";
 import { Form } from "antd";
 import "./styles.scss";
+import { createFilePath } from "~shared/lib/file/creeateFilePath";
 
 type UserInfo = {
   username: string;
@@ -27,7 +28,7 @@ export const UserPage = () => {
   const navigate = useNavigate();
 
   const [form] = Form.useForm();
-  const [avatar, setAvatar] = useState<string | undefined>(undefined);
+  const [avatar, setAvatar] = useState<string>("");
 
   const { data } = useGetUserQuery({ id: userId! }, { skip: !userId });
   const [updateUser] = useUpdateUserMutation();
@@ -40,16 +41,19 @@ export const UserPage = () => {
   useEffect(() => {
     if (data) {
       const userData = data.data;
+      const { avatar, username, email, role, age, bio } = userData;
+
       form.setFieldsValue({
-        username: userData.username,
-        email: userData.email || "",
-        role: userData.role || "USER",
-        age: userData.age,
-        bio: userData.bio,
+        username,
+        email: email || "",
+        role: role || "USER",
+        age,
+        bio,
       });
 
-      if (userData.avatar) {
-        setAvatar(userData.avatar);
+      if (avatar) {
+        const avatarUrl = createFilePath(avatar);
+        setAvatar(avatarUrl);
       }
     }
   }, [data, form]);

@@ -1,6 +1,7 @@
-import { TableColumnsType } from "antd";
+import { Avatar, TableColumnsType } from "antd";
 import { DeleteOutlined, UserOutlined } from "@ant-design/icons";
 import { UserRoles } from "~pages/UsersPage/api/userEndpoints";
+import { createFilePath } from "~shared/lib/file/creeateFilePath";
 
 export interface DataType {
   id: string;
@@ -18,6 +19,21 @@ export const getUserListColumns = (
   onDelete: (userId: string) => void
 ): TableColumnsType<DataType> => {
   return [
+    {
+      title: "Avatar",
+      dataIndex: "avatar",
+      key: "avatar",
+      render: (value) => (
+        <Avatar
+          size={200}
+          src={value ? createFilePath(value) : null}
+          style={{ width: 60, height: 60 }}
+          icon={
+            value ? null : <UserOutlined style={{ width: 40, height: 40 }} />
+          }
+        />
+      ),
+    },
     {
       title: "Username",
       dataIndex: "username",
@@ -41,12 +57,7 @@ export const getUserListColumns = (
       key: "email",
       render: (value) => (value ? value : "-"),
     },
-    {
-      title: "Avatar",
-      dataIndex: "avatar",
-      key: "avatar",
-      render: (value) => (value ? value : "-"),
-    },
+
     {
       title: "",
       dataIndex: "actions",
