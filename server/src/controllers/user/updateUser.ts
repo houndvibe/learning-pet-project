@@ -45,10 +45,7 @@ export const updateUser = async (
       }
     }
 
-    let avatarPath = user.avatar;
-    // Обработка аватара, если он был отправлен в base64
-    if (avatar && avatar.toString().startsWith("data:image")) {
-      // Создаем директорию uploads, если она не существует
+    const createAvatarPath = (avatar) => {
       const uploadsDir = path.join(__dirname, "../../../uploads");
       if (!fs.existsSync(uploadsDir)) {
         fs.mkdirSync(uploadsDir, { recursive: true });
@@ -70,9 +67,14 @@ export const updateUser = async (
         fs.writeFileSync(filePath, data);
 
         // Обновляем путь к аватару для сохранения в БД
-        avatarPath = `/uploads/${filename}`;
+        return `/uploads/${filename}`;
       }
-    }
+      return "";
+    };
+
+    const IsBase64 = avatar && avatar.toString().startsWith("data:image");
+
+    const avatarPath = IsBase64 ? createAvatarPath(avatar) : user.avatar;
 
     await User.update(
       { username, role, email, avatar: avatarPath, age, bio },
