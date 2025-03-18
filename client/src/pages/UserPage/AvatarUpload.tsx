@@ -5,8 +5,8 @@ import "./styles.scss";
 import { RcFile } from "antd/lib/upload";
 
 interface AvatarUploadProps {
-  avatar: string | null;
-  setAvatar: React.Dispatch<React.SetStateAction<string | null>>;
+  avatar: string;
+  setAvatar: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const checkFileType = (file: RcFile) => {
@@ -15,6 +15,7 @@ const checkFileType = (file: RcFile) => {
     message.error("Вы можете загрузить только изображение!");
     return false;
   }
+  return true;
 };
 
 const checkFileSize = (file: RcFile) => {
@@ -23,6 +24,7 @@ const checkFileSize = (file: RcFile) => {
     message.error("Изображение должно быть меньше 2MB!");
     return false;
   }
+  return true;
 };
 
 const readFile = (file: RcFile): Promise<string> => {
@@ -39,8 +41,10 @@ const readFile = (file: RcFile): Promise<string> => {
 
 const AvatarUpload: React.FC<AvatarUploadProps> = ({ avatar, setAvatar }) => {
   const handleChange: UploadProps["beforeUpload"] = async (file) => {
-    checkFileType(file);
-    checkFileSize(file);
+    const isTypeOk = checkFileType(file);
+    const isSizeOk = checkFileSize(file);
+    if (!isTypeOk || !isSizeOk) return false;
+
     const result = await readFile(file);
     setAvatar(result);
     return false;
@@ -61,7 +65,7 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({ avatar, setAvatar }) => {
           )}
           <div className="avatar-upload__overlay">
             <PlusOutlined className="avatar-upload__icon" />
-            Изменить
+            {"Изменить"}
           </div>
         </div>
       </Upload>
