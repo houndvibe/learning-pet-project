@@ -3,23 +3,46 @@
   text-align: left; // Выровнять все по левому краю
 
   .avatar-upload {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-  }
+    position: relative;
+    display: inline-block;
 
-  .avatar {
-    cursor: pointer;
-  }
+    .avatar-uploader {
+      position: relative;
+      cursor: pointer;
 
-  .upload-button {
-    margin-top: 10px;
-  }
+      &:hover .avatar-upload__overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
 
-  .user-form {
-    .ant-form-item {
-      margin-bottom: 15px;
+    .avatar {
+      display: block;
+      border: 2px solid #d9d9d9;
+    }
+
+    &__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 50%;
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity 0.3s ease-in-out,
+        visibility 0.3s ease-in-out;
+
+      .avatar-upload__icon {
+        font-size: 24px;
+        margin-bottom: 5px;
+      }
     }
   }
 }

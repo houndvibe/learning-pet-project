@@ -8,13 +8,18 @@ import swaggerUi from "swagger-ui-express";
 import redoc from "redoc-express";
 import errorHandler from "./middleware/errorHandlingMiddleware";
 import { specs } from "./doc/swagger";
+import path from "path";
 
 const PORT = process.env.PORT || 7000;
 const app = express();
 
 app.use(cookieParser());
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
-app.use(express.json());
+
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+
 app.use("/api", router);
 app.use(errorHandler);
 app.get("/api-docs/swagger.json", (req, res) => {
