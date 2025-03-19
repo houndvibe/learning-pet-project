@@ -2,6 +2,7 @@ import { Button } from "antd";
 import { Header as AntHeader } from "antd/lib/layout/layout";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import "./styles.scss";
+import { useHeader } from "~shared/hooks/useHeader";
 
 interface Props {
   collapsed: boolean;
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export const Header: React.FC<Props> = ({ collapsed, setCollapsed }) => {
+  const { pageTitle } = useHeader();
   return (
     <AntHeader className="header">
       <Button
@@ -17,6 +19,7 @@ export const Header: React.FC<Props> = ({ collapsed, setCollapsed }) => {
         onClick={() => setCollapsed(!collapsed)}
         className="header__button"
       />
+      {pageTitle}
     </AntHeader>
   );
 };
