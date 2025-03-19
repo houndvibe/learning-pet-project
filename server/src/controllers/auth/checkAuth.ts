@@ -19,5 +19,8 @@ export const checkAuth = async (
     return next(ApiError.internal("Пользователь был удален из базы"));
   }
 
-  res.json({ token });
+  res.json({
+    token,
+    user,
+  });
 };

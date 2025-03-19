@@ -95,8 +95,8 @@ export type UpdateUserApiArg = {
 export type GetUserApiResponse = {
   data: {
     id: string;
-    username?: string;
-    role?: UserRoles;
+    username: string;
+    role: UserRoles;
     email?: string;
     avatar?: string;
     age?: number;

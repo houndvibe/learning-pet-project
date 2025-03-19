@@ -5,8 +5,8 @@ import { Input, Space, Typography, Button } from "antd";
 import { signIn } from "~features/auth/model/authSlice";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { LogIn, Register } from "~features/auth/ui";
-import "./styles.scss";
 import { useAuth } from "~features/auth/model/selector";
+import "./styles.scss";
 
 const { Title, Text } = Typography;
 
@@ -14,7 +14,7 @@ export const LoginPage = () => {
   const dispatch = useTypedDispatch();
   const navigate = useNavigate();
 
-  const [registerMode, setRegisternMode] = useState<boolean>(true);
+  const [registerMode, setRegisterMode] = useState<boolean>(true);
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -22,7 +22,7 @@ export const LoginPage = () => {
 
   useEffect(() => {
     return () => {
-      setRegisternMode(false);
+      setRegisterMode(false);
     };
   }, []);
 
@@ -68,7 +68,7 @@ export const LoginPage = () => {
           <Text className="auth__toggle-text">Or:</Text>
           <Button
             type="link"
-            onClick={() => setRegisternMode(!registerMode)}
+            onClick={() => setRegisterMode(!registerMode)}
             className="auth__toggle-button"
           >
             {registerMode
