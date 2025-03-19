@@ -1,4 +1,4 @@
-import { Menu, Layout, Avatar } from "antd";
+import { Menu, Layout } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useTypedDispatch } from "~app/store/typedHooks";
 import {
@@ -7,8 +7,7 @@ import {
 } from "~widgets/AuthorisedUi/Sidebar/config/sidebarItemsConfig";
 import "./styles.scss";
 import { MenuProps } from "antd/lib";
-import { useAuth } from "~features/auth/model/selector";
-import { createFilePath } from "~shared/lib/file/creeateFilePath";
+import { UserThumb } from "./UserThumb";
 
 const { Sider } = Layout;
 interface Props {
@@ -18,10 +17,6 @@ interface Props {
 export const Sidebar: React.FC<Props> = ({ collapsed }) => {
   const dispatch = useTypedDispatch();
   const navigate = useNavigate();
-
-  const { userData } = useAuth();
-  const { avatar, id } = userData;
-  const avatarUrl = avatar ? createFilePath(avatar) : null;
 
   const generateSidebarMenuItems = (
     items: SidebarItemsProps[]
@@ -40,24 +35,8 @@ export const Sidebar: React.FC<Props> = ({ collapsed }) => {
 
   return (
     <Sider trigger={null} collapsible collapsed={collapsed} className="sidebar">
-      <div className="sidebar__logo">
-        {collapsed ? (
-          <Avatar
-            src={avatarUrl}
-            size={40}
-            onClick={() => navigate(`/settings/users/${id}`)}
-          />
-        ) : (
-          <>
-            <Avatar
-              src={avatarUrl}
-              size={40}
-              onClick={() => navigate(`/settings/users/${id}`)}
-            />
-            {userData.username}
-          </>
-        )}
-      </div>
+      <UserThumb isExpanded={!collapsed} />
+
       <Menu
         theme="light"
         mode="inline"

@@ -1,4 +1,7 @@
-import { apiSlice as api } from "../../../shared/api/apiSlice";
+import { setUserData } from "~features/auth/model/authSlice";
+import { apiSlice as api } from "~shared/api/apiSlice";
+import { RootState } from "~app/store/rootStore";
+import HandleResponse from "~shared/lib/api/handleResponse";
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -35,6 +38,19 @@ const injectedRtkApi = api.injectEndpoints({
         { type: "User", id: result?.data.id },
         "Users",
       ],
+      async onQueryStarted({ body }, { dispatch, queryFulfilled, getState }) {
+        //Если обновили текущего юзера - обновляем userData В сторе
+        try {
+          const { data } = await queryFulfilled;
+          const currentUser = (getState() as RootState).auth.userData;
+          const isCurrentUserUpdated = currentUser.id == body.id;
+          if (isCurrentUserUpdated) {
+            dispatch(setUserData(data.data));
+          }
+        } catch (error) {
+          HandleResponse.error(error);
+        }
+      },
     }),
   }),
   overrideExisting: false,
@@ -71,8 +87,8 @@ export type DeleteUserApiArg = {
 export type UpdateUserApiResponse = {
   data: {
     id: string;
-    username?: string;
-    role?: UserRoles;
+    username: string;
+    role: UserRoles;
     email?: string;
     avatar?: string;
     age?: number;

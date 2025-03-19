@@ -1,12 +1,20 @@
 .sidebar {
   background: #fff;
 
-  &__logo {
-    height: 32px;
-    margin: 16px;
+  &__thumb {
+    cursor: pointer;
+    margin: 8px;
+    padding: 3px 0px 2px 6px;
     background: rgba(255, 255, 255, 0.2);
-    text-align: center;
     line-height: 32px;
+    border-radius: 6px;
+  }
+
+  .thub_img {
+    border-radius: 30%;
+  }
+  .thub_text {
+    font-size: 20px;
   }
 
   &__menu {
