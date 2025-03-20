@@ -39,14 +39,8 @@ export const getSidebarItemsConfig = (
       {
         key: "21",
         name: "users",
-        label: "Пользователи",
-        to: "/users",
-      },
-      {
-        key: "22",
-        name: "testpage",
-        label: "Тестовая страница",
-        to: "/testPage",
+        label: "Приложение 1",
+        to: "/apps",
       },
     ],
   },

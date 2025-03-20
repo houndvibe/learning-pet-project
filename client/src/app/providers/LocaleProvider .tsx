@@ -1,6 +1,6 @@
 import * as dayjs from "dayjs";
-/* import "dayjs/locale/ru";
-import "dayjs/locale/en"; */
+import "dayjs/locale/ru";
+import "dayjs/locale/en";
 import { ConfigProvider } from "antd";
 import { useTranslation } from "react-i18next";
 import { formatLocale } from "~shared/lib/locale";
