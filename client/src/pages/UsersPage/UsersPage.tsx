@@ -55,7 +55,7 @@ export const UsersPage = () => {
         return {
           onClick: () => {
             console.log(record.id);
-            navigate(`/settings/users/${record.id}`);
+            navigate(`/settings/user/${record.id}`);
           },
         };
       }}

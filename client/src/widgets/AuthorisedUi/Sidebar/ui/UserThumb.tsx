@@ -17,7 +17,7 @@ export const UserThumb = ({ isExpanded }: { isExpanded: boolean }) => {
       className="sidebar__thumb"
       gap={10}
       align="center"
-      onClick={() => navigate(`/settings/users/${id}`)}
+      onClick={() => navigate(`/settings/user/${id}`)}
     >
       <Avatar
         className="thub_img"
