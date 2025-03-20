@@ -51,14 +51,9 @@ export const UsersPage = () => {
     <Alert message="Ошибка загрузки пользователей" type="error" />
   ) : (
     <Table
-      onRow={(record) => {
-        return {
-          onClick: () => {
-            console.log(record.id);
-            navigate(`/settings/user/${record.id}`);
-          },
-        };
-      }}
+      onRow={(record) => ({
+        onClick: () => navigate(`/settings/user/${record.id}`),
+      })}
       columns={getUserListColumns(userData.id, handleDeleteUser)}
       dataSource={dataSource}
       loading={isLoading}
