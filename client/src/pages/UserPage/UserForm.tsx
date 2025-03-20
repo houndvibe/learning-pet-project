@@ -51,15 +51,15 @@ const UserForm: React.FC<UserFormProps> = ({
         </Select>
       </Form.Item>
 
-      <Form.Item label="Email" name="email">
+      <Form.Item label="Email" name="email" normalize={(v) => (v ? v : null)}>
         <Input placeholder="Введите email" />
       </Form.Item>
 
-      <Form.Item label="Возраст" name="age">
+      <Form.Item label="Возраст" name="age" normalize={(v) => (v ? v : null)}>
         <Input type="number" placeholder="Введите возраст" />
       </Form.Item>
 
-      <Form.Item label="О себе" name="bio">
+      <Form.Item label="О себе" name="bio" normalize={(v) => (v ? v : null)}>
         <Input.TextArea placeholder="Расскажите о себе" rows={4} />
       </Form.Item>
 

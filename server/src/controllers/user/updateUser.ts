@@ -33,15 +33,13 @@ export const updateUser = async (
       );
     }
 
-    if (username) {
-      const candidate = await User.findOne({
-        where: { username },
-      });
-      if (candidate && candidate.id !== user.id) {
-        return next(
-          ApiError.badRequest("Пользователь с таким username уже существует")
-        );
-      }
+    const candidate = await User.findOne({
+      where: { username },
+    });
+    if (candidate && candidate.id !== user.id) {
+      return next(
+        ApiError.badRequest("Пользователь с таким username уже существует")
+      );
     }
 
     const IsBase64 = avatar && avatar.toString().startsWith("data:image");

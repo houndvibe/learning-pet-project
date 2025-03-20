@@ -1,8 +1,8 @@
 import { Button } from "antd";
 import { Header as AntHeader } from "antd/lib/layout/layout";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
-import "./styles.scss";
 import { useHeader } from "~shared/hooks/useHeader";
+import "./styles.scss";
 
 interface Props {
   collapsed: boolean;
