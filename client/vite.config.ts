@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
       react(),
       tsconfigPaths(),
       checker({
-        typescript: { tsconfigPath: "tsconfig.app.json" },
+        typescript: true,
       }),
     ],
     server: {
