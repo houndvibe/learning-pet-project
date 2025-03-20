@@ -9,7 +9,9 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       tsconfigPaths(),
-      checker({ typescript: true, stylelint: false }),
+      checker({
+        typescript: { tsconfigPath: "tsconfig.app.json" },
+      }),
     ],
     server: {
       port: 3000,

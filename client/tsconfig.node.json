@@ -27,7 +27,10 @@
       "~features/*": ["src/features/*"],
       "~entities/*": ["src/entities/*"],
       "~shared/*": ["src/shared/*"]
-    }
+    },
+
+    "noEmitOnError": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", "src"]
 }

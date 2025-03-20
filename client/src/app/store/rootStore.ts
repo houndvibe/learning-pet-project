@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "~shared/api/apiSlice";
-import { authSlice } from "~features/Auth/model/authSlice";
+import { authSlice } from "~features/auth/model/authSlice";
 import { rtkQueryErrorLogger } from "./errorMiddleware";
 
 const store = configureStore({
