@@ -27,7 +27,7 @@ export const updateUser = async (
         },
       },
     });
-    if (sameEmailUser) {
+    if (sameEmailUser && email !== null) {
       return next(
         ApiError.badRequest("Пользователь c такой почтой уже существует")
       );
